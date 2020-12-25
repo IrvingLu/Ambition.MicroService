@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Pet.Web.Core.Extensions
+namespace Pet.Reservation.Web.Core.Extensions
 {
     /// <summary>
     /// linq扩展

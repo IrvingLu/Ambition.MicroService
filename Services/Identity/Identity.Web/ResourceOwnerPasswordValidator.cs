@@ -1,7 +1,7 @@
-﻿using Identity.Core.Domain;
-using IdentityServer4.Models;
+﻿using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
+using Shared.Domain.Abstractions.Identity;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;

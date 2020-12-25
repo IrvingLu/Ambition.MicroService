@@ -1,4 +1,3 @@
-using Identity.Core.Domain;
 using Identity.Infrastructure;
 using Identity.Service.Identity;
 using Identity.Web.StartupExtensions;
@@ -8,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shared.Domain.Abstractions.Identity;
 using System;
 
 namespace Identity.Web
@@ -35,6 +35,7 @@ namespace Identity.Web
                     .AddDeveloperSigningCredential()
                     .AddInMemoryIdentityResources(IdentityConfig.GetIdentityResources())
                     .AddInMemoryApiResources(IdentityConfig.GetApiResources())
+                    .AddInMemoryApiScopes(IdentityConfig.GetApiScope())
                     .AddInMemoryClients(IdentityConfig.GetClients())
                     .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
                     .AddProfileService<ProfileService>();

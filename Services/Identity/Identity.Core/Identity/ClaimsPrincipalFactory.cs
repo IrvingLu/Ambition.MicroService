@@ -1,7 +1,7 @@
-﻿using Identity.Core.Domain;
-using IdentityModel;
+﻿using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using Shared.Domain.Abstractions.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 

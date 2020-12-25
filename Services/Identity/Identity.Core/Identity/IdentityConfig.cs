@@ -20,7 +20,16 @@ namespace Identity.Service.Identity
         {
             return new List<ApiResource>
             {
-                new ApiResource("api", "My API")
+                new ApiResource("api", "api"){
+                    Scopes={ "api"}
+                }
+            };
+        }
+        public static IEnumerable<ApiScope> GetApiScope()
+        {
+            return new List<ApiScope>
+            {
+                new ApiScope("api")
             };
         }
         public static IEnumerable<Client> GetClients()
