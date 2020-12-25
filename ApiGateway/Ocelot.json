@@ -1,0 +1,40 @@
+{
+  ///全局配置
+  //"GlobalConfiguration": {
+  //  "BaseUrl": "http://0.0.0.0:5000",
+  //  "ServiceDiscoveryProvider": {
+  //    "Host": "192.168.1.42",
+  //    "Port": 8500
+  //  }
+  //},
+  //路由配置
+  "Routes": [
+    ///认证服务
+    {
+      "UpstreamPathTemplate": "/connect/token",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/connect/token",
+      "DownstreamScheme": "http",
+      //服务发现配置
+      "ServiceName": "IdentityService",
+      "LoadBalancer": "LeastConnection",
+      "UseServiceDiscovery": true
+    },
+    ///预约
+    {
+      "UpstreamPathTemplate": "/reservation/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      //服务发现配置
+      "ServiceName": "ReservationService",
+      "LoadBalancer": "LeastConnection",
+      "UseServiceDiscovery": true
+      //认证服务
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "TestKey",
+      //  "AllowedScopes": []
+      //}
+    }
+  ]
+}
