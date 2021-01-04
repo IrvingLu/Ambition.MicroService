@@ -14,6 +14,7 @@ namespace Pet.Reservation.Web.Infrastructure
             builder.RegisterType<ApplicationDbContext>().AsSelf();
             //注入command
             //builder.RegisterAssemblyTypes(typeof(CommandHandler).GetTypeInfo().Assembly);
+   
         }
     }
 }

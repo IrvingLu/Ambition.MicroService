@@ -84,7 +84,7 @@ namespace Pet.Reservation.Web
             }
             app.UseRouting();
             app.UseCors("AllowSameDomain");
-            app.UseAuthentication();
+            app.UseAuthentication();//该代码需要先加载
             app.UseAuthorization();
             app.UseHealthChecks("/health");
             app.UseApiVersioning();

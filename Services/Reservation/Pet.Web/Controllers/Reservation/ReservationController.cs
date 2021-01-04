@@ -9,6 +9,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Shared.Infrastructure.Core.Extensions;
+using Shared.Infrastructure.Core.Tools;
+using System.Text;
 
 namespace Pet.Reservation.Web.Controllers.Reservation
 {
@@ -34,7 +36,9 @@ namespace Pet.Reservation.Web.Controllers.Reservation
         [HttpPost("insert")]
         public async Task<IActionResult> InsertAsync([FromBody] CreateReservationCommand command)
         {
-            var ss = this.User.GetUserId();
+            command.UserId= Guid.Parse(User.GetUserId());
+            var aa = RSA2Helper.Encrypt("123456", Encoding.Default, RSAConfig.PublicKey, RSAConfig.PrivateKey);
+            //var bb = RSA2Helper.Encrypt("wechat", Encoding.Default, RSAConfig.PublicKey, RSAConfig.PrivateKey);
             await _mediator.Send(command);
             return Ok(new BaseResult((int)HttpStatusCode.OK, "Success"));
         }

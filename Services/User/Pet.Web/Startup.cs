@@ -30,6 +30,10 @@ namespace Pet.User.Web
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            ////redis配置
+            var section = Configuration.GetSection("ApplicationConfiguration").GetSection("WechatConfig");
+            RedisHelper.Initialization(new CSRedis.CSRedisClient(Configuration.GetConnectionString("CsRedisCachingConnectionString")));
+            //AccessTokenContainer.RegisterAsync(section.GetSection("AppId").Value, section.GetSection("AppSecret").Value).ConfigureAwait(false).GetAwaiter().GetResult();
             //加载http上下文
             services.AddHttpContextAccessor();
             //解决.netcore 编码问题
@@ -48,14 +52,13 @@ namespace Pet.User.Web
                                     .AllowAnyHeader()
                                     .AllowCredentials());
             });
-            ////redis配置
-            RedisHelper.Initialization(new CSRedis.CSRedisClient(Configuration.GetConnectionString("CsRedisCachingConnectionString")));
+          
             ////配置hangfire定时任务
             //services.AddHangfire(x => x.UseStorage(new MySqlStorage(Configuration.GetConnectionString("MySql") + ";Allow User Variables=true", new MySqlStorageOptions
             //{
             //    TablePrefix = "Hangfire"
             //})));
-       
+
             services.AddConfig(Configuration);//配置文件
             services.AddApplicationDbContext(Configuration);//DbContext上下文
             services.AddIdentityOptions();//身份认证配置

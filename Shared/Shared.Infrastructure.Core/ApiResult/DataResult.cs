@@ -8,10 +8,10 @@
         {
 
         }
-        public DataResult(int code, string message, object data) : base(code, message)
+        public DataResult(int code, string msg, object data) : base(code, msg)
         {
             Code = code;
-            Message = message;
+            Msg = msg;
             Data = data;
         }
     }
@@ -25,10 +25,10 @@
         {
 
         }
-        public DataListResult(int code, string message, object data, int count) : base(code, message)
+        public DataListResult(int code, string msg, object data, int count) : base(code, msg)
         {
             Code = code;
-            Message = message;
+            Msg = msg;
             Data = data;
             Count = count;
         }

@@ -18,6 +18,11 @@ namespace Pet.User.Domain.Tenant
         /// 服务类目
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 服务详情
+        /// </summary>
+        public string Content { get; set; }
         /// <summary>
         /// 市场平均价格
         /// </summary>
@@ -27,7 +32,6 @@ namespace Pet.User.Domain.Tenant
         /// </summary>
         public int SalePrice { get; set; }
         #endregion
-
         /// <summary>
         /// 所属租户
         /// </summary>

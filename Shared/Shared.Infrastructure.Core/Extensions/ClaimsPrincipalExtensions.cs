@@ -22,5 +22,12 @@ namespace Shared.Infrastructure.Core.Extensions
                 throw new ArgumentNullException(nameof(principal));
             return principal.FindFirst(c => c.Type == "Id")?.Value;
         }
+
+        public static string GetTeanantId(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+                throw new ArgumentNullException(nameof(principal));
+            return principal.FindFirst(c => c.Type == "TenantId")?.Value;
+        }
     }
 }

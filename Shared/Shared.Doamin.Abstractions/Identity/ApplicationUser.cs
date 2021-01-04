@@ -18,7 +18,7 @@ namespace Shared.Domain.Abstractions.Identity
         /// <summary>
         /// 租户id
         /// </summary>
-        public Guid TenantId { get; set; }
+        public Guid? TenantId { get; set; }
 
         /// <summary>
         /// 用户地址

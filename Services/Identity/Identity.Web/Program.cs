@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System.Net;
 
-namespace Identity.Web
+namespace Pet.Identity.Web
 {
     public class Program
     {

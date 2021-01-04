@@ -4,10 +4,16 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.IO;
 
-namespace Identity.Web.StartupExtensions
+namespace Pet.Identity.Web.StartupExtensions
 {
+    /// <summary>
+    /// 功能描述    ：ApplicationBuilderExtensions
+    /// 创 建 者    ：鲁岩奇
+    /// 创建日期    ：2020/12/25 13:48:53 
+    /// 最后修改者  ：Administrator
+    /// 最后修改日期：2020/12/25 13:48:53 
+    /// </summary>
     public static class ApplicationBuilderExtensions
     {
         private static readonly string serviceId = Guid.NewGuid().ToString();

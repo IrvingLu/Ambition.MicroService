@@ -4,10 +4,14 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Identity.Service.Identity
+namespace Pet.Identity.Core.Identity
 {
     /// <summary>
-    /// 提供和存储有关用户生成的用户的配置文件信息的服务
+    /// 功能描述    ：提供和存储有关用户生成的用户的配置文件信息的服务
+    /// 创 建 者    ：鲁岩奇
+    /// 创建日期    ：2020/12/25 13:48:53 
+    /// 最后修改者  ：Administrator
+    /// 最后修改日期：2020/12/25 13:48:53 
     /// </summary>
     public class ProfileService : IProfileService
     {

@@ -6,8 +6,15 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Identity.Web
+namespace Pet.Identity.Web
 {
+    /// <summary>
+    /// 功能描述    ：认证逻辑
+    /// 创 建 者    ：鲁岩奇
+    /// 创建日期    ：2020/12/25 13:48:53 
+    /// 最后修改者  ：Administrator
+    /// 最后修改日期：2020/12/25 13:48:53 
+    /// </summary>
     public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -25,8 +32,12 @@ namespace Identity.Web
                 ///判断用户是否存在
                 if (user != null)
                 {
-                    ///这里是非用户名密码登录的判断
-
+                    ///微信登录操作
+                    if (context.Password == "wechatlogin")
+                    {
+                        context.Result = new GrantValidationResult(user.Id.ToString(), user.UserName, GetUserClaim(user));
+                        return;
+                    }
                     ///用户名密码登录，验证用户名密码是否匹配
                     var result = await _signInManager.PasswordSignInAsync(context.UserName, context.Password, false, lockoutOnFailure: false);
                     ///判断验证是否成功
@@ -37,7 +48,6 @@ namespace Identity.Web
                         if (islocked)
                         {
                             context.Result = new GrantValidationResult(TokenRequestErrors.InvalidGrant, "用户已锁定，请联系管理员解锁");
-                            //Console.WriteLine("用户已经被锁定");
                             return;
                         }
                         else
@@ -68,12 +78,10 @@ namespace Identity.Web
                     context.Result = new GrantValidationResult(TokenRequestErrors.InvalidGrant, "此用户名不存在");
                     return;
                 }
-
-
             }
             catch (Exception)
             {
-                //验证失败
+                ///验证失败
                 context.Result = new GrantValidationResult(TokenRequestErrors.InvalidGrant, "invalid custom credential");
                 throw;
             }
@@ -82,7 +90,8 @@ namespace Identity.Web
         {
             var claims = new Claim[] {
                 new Claim("Id", userInfo.Id),
-                new Claim("Name", userInfo.UserName)
+                new Claim("Name", userInfo.UserName),
+                new Claim("TenantId", userInfo.TenantId.ToString())
             };
             return claims;
         }

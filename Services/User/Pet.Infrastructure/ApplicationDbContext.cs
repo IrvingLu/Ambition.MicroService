@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Pet.User.Domain.Tenant;
+using Pet.User.Domain.User;
 using Shared.Domain.Abstractions.Identity;
 
 namespace Pet.User.Infrastructure
@@ -14,7 +15,8 @@ namespace Pet.User.Infrastructure
 
         public DbSet<Tenant> Tenant { get; set; }
         public DbSet<Tenant_ServiceCategory> Tenant_ServiceCategory { get; set; }
-        
+        public DbSet<User_Suggest> User_Suggest { get; set; }
+
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

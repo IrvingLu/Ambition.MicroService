@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+
+  pet.file.web:
+    image: ${DOCKER_REGISTRY-}petfileweb
+    build:
+      context: .
+      dockerfile: Pet.File.Web/Dockerfile
+
+
+  pet.identity.web:
+    image: ${DOCKER_REGISTRY-}petidentityweb
+    build:
+      context: .
+      dockerfile: Services/Identity/Identity.Web/Dockerfile
+
+
+  pet.reservation.web:
+    image: ${DOCKER_REGISTRY-}petreservationweb
+    build:
+      context: .
+      dockerfile: Services/Reservation/Pet.Web/Dockerfile
+
+
+  pet.user.web:
+    image: ${DOCKER_REGISTRY-}petuserweb
+    build:
+      context: .
+      dockerfile: Services/User/Pet.Web/Dockerfile
+

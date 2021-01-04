@@ -1,6 +1,4 @@
-﻿using Pet.User.Infrastructure;
-using Pet.User.Infrastructure.Repositories;
-using Shared.Domain.Abstractions;
+﻿using Shared.Domain.Abstractions;
 using Shared.Infrastructure.Core;
 
 namespace Pet.User.Infrastructure.Repositories

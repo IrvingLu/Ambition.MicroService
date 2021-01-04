@@ -2,8 +2,15 @@
 using IdentityServer4.Models;
 using System.Collections.Generic;
 
-namespace Identity.Service.Identity
+namespace Pet.Identity.Core.Identity
 {
+    /// <summary>
+    /// 功能描述    ：认证配置
+    /// 创 建 者    ：鲁岩奇
+    /// 创建日期    ：2020/12/25 13:48:53 
+    /// 最后修改者  ：Administrator
+    /// 最后修改日期：2020/12/25 13:48:53 
+    /// </summary>
     public class IdentityConfig
     {
         // scopes define the resources in your system
@@ -15,7 +22,9 @@ namespace Identity.Service.Identity
                 new IdentityResources.Profile(),
             };
         }
-        // scopes define the API resources in your system
+        /// <summary>
+        /// api范围
+        /// </summary>
         public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource>
@@ -25,6 +34,10 @@ namespace Identity.Service.Identity
                 }
             };
         }
+        /// <summary>
+        /// id4 4.x版本新增
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<ApiScope> GetApiScope()
         {
             return new List<ApiScope>
