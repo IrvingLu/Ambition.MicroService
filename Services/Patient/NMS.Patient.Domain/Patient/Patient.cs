@@ -1,4 +1,5 @@
-﻿using Shared.Domain.Abstractions;
+﻿using NMS.Patient.Domain.Patient.Events;
+using Shared.Domain.Abstractions;
 
 namespace NMS.Patient.Domain.Patient
 {
@@ -24,7 +25,7 @@ namespace NMS.Patient.Domain.Patient
         {
             Name = name;
             Phone = phone;
-
+            AddDomainEvent(new CreatePatientEvent(this));//举例
         }
     }
 }

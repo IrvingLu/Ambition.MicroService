@@ -9,8 +9,4 @@
     <ProjectReference Include="..\..\..\Shared\Shared.Infrastructure.Core\Shared.Infrastructure.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Patient\Events\" />
-  </ItemGroup>
-
 </Project>
