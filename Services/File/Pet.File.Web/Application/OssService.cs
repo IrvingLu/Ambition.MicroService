@@ -1,10 +1,10 @@
 ﻿using Aliyun.OSS;
-using Pet.File.Web.Configuration;
+using NMS.File.Web.Configuration;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Pet.File.Web.Application
+namespace NMS.File.Web.Application
 {
     public class OssService : IOssService
     {

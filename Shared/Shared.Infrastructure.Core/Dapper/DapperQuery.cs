@@ -1,10 +1,8 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
-using System;
+using Npgsql;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Shared.Infrastructure.Core.Dapper
@@ -23,18 +21,7 @@ namespace Shared.Infrastructure.Core.Dapper
         public DapperQuery(IConfiguration configuration)
         {
             _configuration = configuration;
-            connectionString = _configuration.GetConnectionString("MySql");
-        }
-        /// <summary>
-        /// 查询
-        /// </summary>
-        /// <param name="sql">查询的sql</param>
-        /// <param name="param">替换参数</param>
-        /// <returns></returns>
-        public async Task<IEnumerable<dynamic>> QueryAsync(string sql, object param)
-        {
-            using MySqlConnection con = new MySqlConnection(connectionString);
-            return await con.QueryAsync(sql);
+            connectionString = _configuration.GetConnectionString("Postgresql");
         }
         /// <summary>
         /// 查询列表带参数
@@ -44,7 +31,7 @@ namespace Shared.Infrastructure.Core.Dapper
         /// <returns></returns>
         public async Task<IEnumerable<TEntity>> QueryAsync<TEntity>(string sql, object param)
         {
-            using MySqlConnection con = new MySqlConnection(connectionString);
+            using NpgsqlConnection con = new(connectionString);
             return await con.QueryAsync<TEntity>(sql, param);
         }
         /// <summary>
@@ -55,9 +42,8 @@ namespace Shared.Infrastructure.Core.Dapper
         /// <returns></returns>
         public async Task<TEntity> QueryFirstAsync<TEntity>(string sql, object param)
         {
-            using MySqlConnection con = new MySqlConnection(connectionString);
+            using NpgsqlConnection con = new(connectionString);
             return await con.QueryFirstOrDefaultAsync<TEntity>(sql, param);
         }
-
     }
 }

@@ -1,12 +1,15 @@
 using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Primitives;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
+using System.Threading.Tasks;
 
 namespace GateWay.Api
 {
@@ -16,39 +19,49 @@ namespace GateWay.Api
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // 服务注入
         public void ConfigureServices(IServiceCollection services)
         {
-            var authenticationProviderKey = "TestKey";
             //资源服务器配置
             services.AddAuthentication(options =>
             {
-
-            }).AddIdentityServerAuthentication(authenticationProviderKey, options =>
+                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddIdentityServerAuthentication("NmsKey", options =>
             {
-                options.Authority = Configuration.GetSection("ApplicationConfiguration").GetSection("IdentityAddress").Value;
+                options.Authority = Configuration["ApplicationConfiguration:IdentityAddress"];
                 options.RequireHttpsMetadata = false;
-                options.SupportedTokens = SupportedTokens.Both;
                 options.ApiName = "api";
                 options.ApiSecret = "secret";
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        if (context.Request.Query.TryGetValue("token", out StringValues token))
+                        {
+                            context.Token = token;
+                        }
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        var te = context.Exception;
+                        return Task.CompletedTask;
+                    }
+                };
             });
             services.AddOcelot().AddConsul();
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // 中间件
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseOcelot().Wait();
-
         }
     }
 }

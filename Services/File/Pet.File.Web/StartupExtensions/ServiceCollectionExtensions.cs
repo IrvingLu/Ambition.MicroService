@@ -1,27 +1,55 @@
 ﻿using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
+using Microsoft.IdentityModel.Logging;
 using Newtonsoft.Json;
-using Shared.Infrastructure.Core.Configuration;
-using System;
+using NMS.File.Web.Application;
+using NMS.File.Web.Configuration;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Pet.File.Web.StartupExtensions
+namespace NMS.File.Web.StartupExtensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddConfig(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.ConfigureStartupConfig<MongodbHostConfig>(configuration.GetSection("MongodbHostConfig"));
+            services.ConfigureStartupConfig<OssClientConfig>(configuration.GetSection("ApplicationConfiguration").GetSection("OssConfig"));
+            //加载http上下文
+            services.AddHttpContextAccessor();
+            //解决.netcore 编码问题
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            IdentityModelEventSource.ShowPII = true;//显示错误的详细信息并查看问题
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+            //跨域配置
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSameDomain",
+                    policy => policy.SetIsOriginAllowed(origin => true)
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader()
+                                    .AllowCredentials());
+            });
+            //健康检查
+            services.AddHealthChecks();
+            //认证服务
+            services.AddAuthService(configuration);
+            //api版本
+            services.AddApiVersion();
+            //api控制器
+            services.AddController();
+            ///服务注入
+            services.AddScoped<IOssService, OssService>();
             return services;
         }
-
         /// <summary>
         /// 资源服务器注入
         /// </summary>
@@ -60,7 +88,6 @@ namespace Pet.File.Web.StartupExtensions
             });
             return services;
         }
-
         /// <summary>
         /// 接口版本注入
         /// </summary>
@@ -99,6 +126,13 @@ namespace Pet.File.Web.StartupExtensions
             });
             return services;
         }
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <typeparam name="TConfig"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static TConfig ConfigureStartupConfig<TConfig>(this IServiceCollection services, IConfiguration configuration) where TConfig : class, new()
         {
             //创建配置

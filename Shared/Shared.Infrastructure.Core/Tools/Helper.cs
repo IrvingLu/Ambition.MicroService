@@ -15,7 +15,7 @@ namespace Shared.Infrastructure.Core.Tools
         public static string GetPropertyNameAndValue(object obj)
         {
             if (obj == null) { return string.Empty; }
-            StringBuilder result = new StringBuilder();
+            StringBuilder result = new();
             try
             {
                 PropertyInfo[] propertys = obj.GetType().GetProperties();
@@ -52,7 +52,7 @@ namespace Shared.Infrastructure.Core.Tools
         /// <returns>输出</returns>
         public static string GetAnonymousString(string input)
         {
-            string output = "";
+            string output;
             switch (input.Length)
             {
                 case 1:
@@ -108,7 +108,7 @@ namespace Shared.Infrastructure.Core.Tools
         {
             if (str == null || str.Length == 0)
                 return false;
-            ASCIIEncoding ascii = new ASCIIEncoding();
+            ASCIIEncoding ascii = new();
             byte[] bytestr = ascii.GetBytes(str);
             foreach (byte c in bytestr)
             {

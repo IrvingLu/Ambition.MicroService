@@ -15,7 +15,6 @@ namespace Shared.Infrastructure.Core.Dapper
     /// </summary>
     public interface IDapperQuery
     {
-        Task<IEnumerable<dynamic>> QueryAsync(string sql, object param);
         Task<IEnumerable<TEntity>> QueryAsync<TEntity>(string sql, object param);
         Task<TEntity> QueryFirstAsync<TEntity>(string sql, object param);
     }

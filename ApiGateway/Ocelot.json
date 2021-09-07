@@ -1,12 +1,11 @@
 {
-  ///全局配置
-  //"GlobalConfiguration": {
-  //  "BaseUrl": "http://0.0.0.0:5000",
-  //  "ServiceDiscoveryProvider": {
-  //    "Host": "192.168.1.42",
-  //    "Port": 8500
-  //  }
-  //},
+  ///服务发现
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "10.13.37.15",
+      "Port": 8500
+    }
+  },
   //路由配置
   "Routes": [
     ///认证服务
@@ -20,21 +19,21 @@
       "LoadBalancer": "LeastConnection",
       "UseServiceDiscovery": true
     },
-    ///预约
+    ///患者
     {
-      "UpstreamPathTemplate": "/reservation/{everything}",
+      "UpstreamPathTemplate": "/patient/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       //服务发现配置
-      "ServiceName": "ReservationService",
+      "ServiceName": "PatientService",
       "LoadBalancer": "LeastConnection",
-      "UseServiceDiscovery": true
+      "UseServiceDiscovery": true,
       //认证服务
-      //"AuthenticationOptions": {
-      //  "AuthenticationProviderKey": "TestKey",
-      //  "AllowedScopes": []
-      //}
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "NmsKey",
+        "AllowedScopes": []
+      }
     }
   ]
 }

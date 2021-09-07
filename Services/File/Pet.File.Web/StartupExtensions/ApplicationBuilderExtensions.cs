@@ -4,22 +4,25 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.IO;
 
-namespace Pet.File.Web.StartupExtensions
+namespace NMS.File.Web.StartupExtensions
 {
     public static class ApplicationBuilderExtensions
     {
-        /// <summary>
-        /// 使用log4net配置
-        /// </summary>
-        /// <param name="app"></param>
-        /// <returns></returns>
-        public static IApplicationBuilder UseLog4net(this IApplicationBuilder app)
+
+        public static void UseConfig(this IApplicationBuilder app, IConfiguration Configuration, IHostApplicationLifetime lifetime)
         {
-            var logRepository = log4net.LogManager.CreateRepository(System.Reflection.Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
-            log4net.Config.XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
-            return app;
+            app.UseRouting();
+            app.UseCors("AllowSameDomain");//跨域
+            app.UseAuthentication();//授权
+            app.UseAuthorization();//验证
+            app.UseHealthChecks("/health");//健康检查
+            app.UseApiVersioning();//api
+            app.RegisterToConsul(Configuration, lifetime);//服务注册
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
         private static readonly string serviceId = Guid.NewGuid().ToString();
         /// <summary>

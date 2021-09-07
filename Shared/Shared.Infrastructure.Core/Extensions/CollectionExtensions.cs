@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Pet.Reservation.Web.Core.Extensions
+namespace NMS.Reservation.Web.Core.Extensions
 {
     /// <summary>
     /// 集合扩展

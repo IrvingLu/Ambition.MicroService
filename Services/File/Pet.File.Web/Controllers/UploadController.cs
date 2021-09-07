@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Pet.File.Web.Application;
+using NMS.File.Web.Application;
 using Shared.Infrastructure.Core;
 using Shared.Infrastructure.Core.Extensions;
 using System;
@@ -10,7 +10,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Pet.File.Web.Controllers
+namespace NMS.File.Web.Controllers
 {
     /// <summary>
     /// 预约接口

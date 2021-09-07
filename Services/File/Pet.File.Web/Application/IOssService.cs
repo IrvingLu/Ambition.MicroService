@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pet.File.Web.Application
+namespace NMS.File.Web.Application
 {
     public interface IOssService
     {

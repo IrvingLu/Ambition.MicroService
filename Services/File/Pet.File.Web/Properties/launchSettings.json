@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Pet.File.Web": {
+    "NMS.File.Web": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

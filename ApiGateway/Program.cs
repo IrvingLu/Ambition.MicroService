@@ -27,7 +27,7 @@ namespace GateWay.Api
                {
                    options.Limits.MinRequestBodyDataRate = null;//½â¾ö
                         options.AddServerHeader = false;
-                   options.Listen(IPAddress.Any, 8888);
+                   options.Listen(IPAddress.Any, 5000);
                });
            });
     }
