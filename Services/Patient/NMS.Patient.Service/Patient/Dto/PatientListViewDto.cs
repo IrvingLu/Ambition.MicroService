@@ -2,7 +2,7 @@
 
 namespace NMS.Patient.Service.Patient.Dto
 {
-    public  class PatientListViewDto:EntityDto
+    public class PatientListViewDto:EntityDto
     {
         public string Name { get; set; }
     }
