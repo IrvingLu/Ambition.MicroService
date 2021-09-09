@@ -1,11 +1,17 @@
-﻿using AutoMapper;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：查询
+*使用说明    ：查询
+***********************************************************************/
+
+using AutoMapper;
 using MediatR;
 using NMS.Patient.Infrastructure.Repositories;
 using NMS.Patient.Service.Patient.Command;
 using NMS.Patient.Service.Patient.Dto;
-using NMS.Reservation.Web.Core.Extensions; 
+using NMS.Reservation.Web.Core.Extensions;
 using Shared.Infrastructure.Core.BaseDto;
-using Shared.Infrastructure.Core.Core;
 using Shared.Infrastructure.Core.Dapper;
 using System.Collections.Generic;
 using System.Threading;

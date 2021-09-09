@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：值对象
+*使用说明    ：值对象
+***********************************************************************/
+
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Shared.Domain.Abstractions

@@ -1,3 +1,10 @@
+/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：程序启动入口
+*使用说明    ：程序启动入口
+***********************************************************************/
+
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;

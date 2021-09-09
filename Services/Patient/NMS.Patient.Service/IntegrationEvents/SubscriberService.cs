@@ -1,4 +1,5 @@
-﻿using DotNetCore.CAP;
+﻿
+using DotNetCore.CAP;
 using System;
 
 namespace NMS.Patient.Service.IntegrationEvents

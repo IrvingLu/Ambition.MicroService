@@ -1,4 +1,11 @@
-﻿using IdentityServer4.Models;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：短信登录，获取token
+*使用说明    ：短信登录，获取token
+***********************************************************************/
+
+using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

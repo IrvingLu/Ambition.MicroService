@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：管道扩展
+*使用说明    ：管道扩展
+***********************************************************************/
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using NMS.Patient.Infrastructure;

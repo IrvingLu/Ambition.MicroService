@@ -1,16 +1,21 @@
-﻿using MediatR;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：服务扩展
+*使用说明    ：服务扩展
+***********************************************************************/
+
+using MediatR;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
-using Microsoft.OpenApi.Models;
 using NMS.Patient.Infrastructure;
 using NMS.Patient.Service;
 using NMS.Patient.Service.IntegrationEvents;
 using Shared.Infrastructure.Core.Extensions;
 using System;
-using System.IO;
 using System.Text;
 
 namespace NMS.Patient.Web.Infrastructure.StartupExtensions

@@ -1,4 +1,11 @@
-﻿using MediatR;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：患者api
+*使用说明    ：前端调用
+***********************************************************************/
+
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NMS.Patient.Service.Patient.Command;
 using NMS.User.Web.Controllers;
@@ -8,13 +15,6 @@ using System.Threading.Tasks;
 
 namespace NMS.Patient.Web.Controllers
 {
-    /// <summary>
-    /// 功能描述    ：用户相关接口
-    /// 创 建 者    ：鲁岩奇
-    /// 创建日期    ：2020/12/25 13:17:23 
-    /// 最后修改者  ：鲁岩奇
-    /// 最后修改日期：2020/12/25 13:17:23 
-    /// </summary>
     [ApiController]
     [Route("api/v1/[controller]")]
     [ApiExplorerSettings(GroupName = "v1")]
@@ -65,40 +65,40 @@ namespace NMS.Patient.Web.Controllers
         }
         #endregion
 
-        // #region Command
-        // /// <summary>
-        // /// 新增
-        // /// </summary>
-        // /// <param name="command"></param>
-        // /// <returns></returns>
-        // [HttpPost("insert")]
-        // public async Task<IActionResult> InsertAsync(CreatePatientCommand command)
-        // {
-        //     await _mediator.Send(command);
-        //     return Success();
-        // }
-        ///// <summary>
-        ///// 更新
-        ///// </summary>
-        ///// <param name="command"></param>
-        ///// <returns></returns>
-        // [HttpPost("update")]
-        // public async Task<IActionResult> UpdateAsync(UpdatePatientCommand command)
-        // {
-        //     await _mediator.Send(command);
-        //     return Success();
-        // }
-        // /// <summary>
-        // /// 删除单条
-        // /// </summary>
-        // /// <param name="command"></param>
-        // /// <returns></returns>
-        // [HttpPost("delete")]
-        // public async Task<IActionResult> DeleteAsync(DeletePatientCommand command)
-        // {
-        //     await _mediator.Send(command);
-        //     return Success();
-        // }
-        // #endregion
+        #region Command
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("insert")]
+        public async Task<IActionResult> InsertAsync(CreatePatientCommand command)
+        {
+            await _mediator.Send(command);
+            return Success();
+        }
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateAsync(UpdatePatientCommand command)
+        {
+            await _mediator.Send(command);
+            return Success();
+        }
+        /// <summary>
+        /// 删除单条
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("delete")]
+        public async Task<IActionResult> DeleteAsync(DeletePatientCommand command)
+        {
+            await _mediator.Send(command);
+            return Success();
+        }
+        #endregion
     }
 }

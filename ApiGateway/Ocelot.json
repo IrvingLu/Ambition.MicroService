@@ -14,7 +14,7 @@
       "UpstreamHttpMethod": [ "Post" ],
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
-      //服务发现配置
+      //服务
       "ServiceName": "IdentityService",
       "LoadBalancer": "LeastConnection",
       "UseServiceDiscovery": true
@@ -25,11 +25,27 @@
       "UpstreamHttpMethod": [ "Get", "Post" ],
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
-      //服务发现配置
+      //服务
       "ServiceName": "PatientService",
       "LoadBalancer": "LeastConnection",
       "UseServiceDiscovery": true,
-      //认证服务
+      //启用认证
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "NmsKey",
+        "AllowedScopes": []
+      }
+    },
+    ///用户服务
+    {
+      "UpstreamPathTemplate": "/user/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      //服务
+      "ServiceName": "UserService",
+      "LoadBalancer": "LeastConnection",
+      "UseServiceDiscovery": true,
+      //启用认证
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "NmsKey",
         "AllowedScopes": []
