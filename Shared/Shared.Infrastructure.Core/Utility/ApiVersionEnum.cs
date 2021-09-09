@@ -1,16 +1,18 @@
 ﻿/************************************************************************
 *本页作者    ：鲁岩奇
 *创建日期    ：2020/11/10 9:51:36 
-*功能描述    ：实体Dto对象
-*使用说明    ：需要用到Id的DTO对象
+*功能描述    ：api版本枚举
+*使用说明    ：api版本枚举
 ***********************************************************************/
 
-using System;
-
-namespace Shared.Infrastructure.Core.BaseDto
+namespace Shared.Infrastructure.Core.Utility
 {
-    public  class EntityDto
+    public enum ApiVersionEnum
     {
-        public Guid Id { get; set; }
+        v1,
+        v2,
+        v3,
+        v4,
+        v5,
     }
 }

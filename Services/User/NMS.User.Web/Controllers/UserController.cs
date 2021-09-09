@@ -15,10 +15,9 @@ namespace NMS.User.Web.Controllers.User
     /// 最后修改者  ：Administrator
     /// 最后修改日期：2020/12/25 13:17:23 
     /// </summary>
-    [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Route("api/v1/[controller]")]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class UserController : BaseController
     {
         private readonly IMediator _mediator;
@@ -31,19 +30,17 @@ namespace NMS.User.Web.Controllers.User
 
 
         [HttpGet("test")]
-        public async Task<IActionResult> Index() {
+        public IActionResult Index()
+        {
 
             DataResult DataListResult = new();
             DataListResult = null;
-           var pp= DataListResult.Data;
+            var pp = DataListResult.Data;
             return Success();
 
-                
+
         }
-        /// <summary>
-        /// 第一种方式
-        /// </summary>
-        /// <param name="datetime"></param>
+
         //[CapSubscribe("xxx.services.show.time")]
         //public void CheckReceivedMessage(DateTime datetime)
         //{

@@ -1,28 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：Claims扩展，用于获取claims中的对象
+*使用说明    ：Claims扩展，用于获取claims中的对象
+***********************************************************************/
+
+using System;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shared.Infrastructure.Core.Extensions
 {
-    /// <summary>
-    /// 功能描述    ：ClaimsPrincipalExtensions  
-    /// 创 建 者    ：Administrator
-    /// 创建日期    ：2020/12/25 15:31:26 
-    /// 最后修改者  ：Administrator
-    /// 最后修改日期：2020/12/25 15:31:26 
-    /// </summary>
     public static class ClaimsPrincipalExtensions
     {
+        /// <summary>
+        /// 获取用户id
+        /// </summary>
+        /// <param name="principal"></param>
+        /// <returns></returns>
         public static string GetUserId(this ClaimsPrincipal principal)
         {
             if (principal == null)
                 throw new ArgumentNullException(nameof(principal));
             return principal.FindFirst(c => c.Type == "Id")?.Value;
         }
-
+        /// <summary>
+        /// 获取租户id
+        /// </summary>
+        /// <param name="principal"></param>
+        /// <returns></returns>
         public static string GetTeanantId(this ClaimsPrincipal principal)
         {
             if (principal == null)

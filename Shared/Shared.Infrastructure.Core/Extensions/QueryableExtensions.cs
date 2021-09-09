@@ -1,4 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：IQueryable扩展
+*使用说明    ：linq的扩展，方便代码
+***********************************************************************/
+
+using Microsoft.EntityFrameworkCore;
 using Shared.Infrastructure.Core.BaseDto;
 using System;
 using System.Linq;

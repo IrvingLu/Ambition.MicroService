@@ -1,8 +1,17 @@
-﻿using Consul;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：service注入扩展
+*使用说明    ：service注入扩展
+***********************************************************************/
+
+using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Shared.Infrastructure.Core.Utility;
 using System;
+using System.Linq;
 
 namespace Shared.Infrastructure.Core.Extensions
 {
@@ -27,7 +36,7 @@ namespace Shared.Infrastructure.Core.Extensions
                 {
                     DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(10),//服务出错1分钟之后，取消服务
                     Interval = TimeSpan.FromSeconds(10),///检查周期
-                    HTTP = "http://"+serviceConfig.GetSection("Address").Value + ":" + Convert.ToInt32(serviceConfig.GetSection("Port").Value) + "/health"
+                    HTTP = "http://" + serviceConfig.GetSection("Address").Value + ":" + Convert.ToInt32(serviceConfig.GetSection("Port").Value) + "/health"
                 };
                 ///服务注册
                 var agentReg = new AgentServiceRegistration()
@@ -47,7 +56,6 @@ namespace Shared.Infrastructure.Core.Extensions
                 client.Agent.ServiceDeregister(serviceId).ConfigureAwait(false);
             });
         }
-
         /// <summary>
         /// 异常处理中间件
         /// </summary>
@@ -56,6 +64,25 @@ namespace Shared.Infrastructure.Core.Extensions
         public static IApplicationBuilder UseErrorHandling(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<ErrorHandlingMiddleware>();
+        }
+        /// <summary>
+        /// Swagger
+        /// </summary>
+        /// <param name="app"></param>
+        public static void UseSwaggerInfo(this IApplicationBuilder app)
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                typeof(ApiVersionEnum).GetEnumNames().ToList().ForEach(version =>
+                {
+#if DEBUG
+                    c.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"{version}");
+#else
+                    c.SwaggerEndpoint($"./swagger/{version}/swagger.json", $"{version}");
+#endif
+                });
+            });
         }
     }
 }

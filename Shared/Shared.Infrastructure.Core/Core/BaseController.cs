@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：api接口继承
+*使用说明    ：api接口
+***********************************************************************/
+
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Shared.Infrastructure.Core;
@@ -15,7 +22,8 @@ namespace NMS.User.Web.Controllers
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public ObjectResult Success()
+        [NonAction]
+        public IActionResult Success()
         {
             return Ok(new BaseResult(StatusCodes.Status200OK, "Success"));
         }
@@ -24,7 +32,8 @@ namespace NMS.User.Web.Controllers
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public ObjectResult Success([ActionResultObjectValue] object data, int? count = null)
+        [NonAction]
+        public IActionResult Success([ActionResultObjectValue] object data, int? count = null)
         {
             return count != null
                 ? Ok(new DataListResult(StatusCodes.Status200OK, "Success", data, (int)count))
@@ -36,9 +45,10 @@ namespace NMS.User.Web.Controllers
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public ObjectResult Error([ActionResultObjectValue] string msg, object data)
+        [NonAction]
+        public IActionResult Error([ActionResultObjectValue] string msg)
         {
-            return Ok(new DataResult(500, msg, data));
+            return Ok(new BaseResult(800, msg));
         }
     }
 }

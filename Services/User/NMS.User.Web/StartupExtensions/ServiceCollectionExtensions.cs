@@ -42,11 +42,11 @@ namespace NMS.User.Web.Infrastructure.StartupExtensions
             services.AddHealthChecks();//健康检查
             services.AddEventBus(configuration);//事件总线
             services.AddAuthService(configuration);//认证服务
-            services.AddApiVersion();//api版本
             services.AddController();//api控制器
             services.AddIdentity<ApplicationUser,ApplicationRole>()
                   .AddEntityFrameworkStores<ApplicationDbContext>()
                   .AddDefaultTokenProviders();//Identity  usermanager和rolemanager服务注入
+            services.AddSwaggerInfo($"{typeof(Startup).Namespace}");
             return services;
 
         }
@@ -56,10 +56,9 @@ namespace NMS.User.Web.Infrastructure.StartupExtensions
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IServiceCollection AddConfig(this IServiceCollection services, IConfiguration configuration)
+        public static void AddConfig(this IServiceCollection services, IConfiguration configuration)
         {
             //services.ConfigureStartupConfig<MongodbHostConfig>(configuration.GetSection("MongodbHostConfig"));
-            return services;
         }
         /// <summary>
         /// eventbus事件总线
@@ -67,12 +66,12 @@ namespace NMS.User.Web.Infrastructure.StartupExtensions
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
+        public static void AddEventBus(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>();
             services.AddTransient<ISubscriberService, SubscriberService>();
             var mqconfig = configuration.GetSection("ApplicationConfiguration").GetSection("RabbitMqAddress");
-            ///消息总线配置
+            //消息总线配置
             services.AddCap(options =>
             {
                 options.UseEntityFramework<ApplicationDbContext>();   
@@ -86,17 +85,14 @@ namespace NMS.User.Web.Infrastructure.StartupExtensions
 
                 options.UseDashboard();
             });
-
-            return services;
         }
         /// <summary>
         /// 身份认证配置
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddIdentityOptions(this IServiceCollection services)
+        public static void AddIdentityOptions(this IServiceCollection services)
         {
-
             services.Configure<IdentityOptions>(options =>
             {
                 // 密码配置
@@ -112,7 +108,6 @@ namespace NMS.User.Web.Infrastructure.StartupExtensions
                 // 用户设置
                 options.User.RequireUniqueEmail = false; //是否Email地址必须唯一
             });
-            return services;
         }
     }
 }

@@ -4,17 +4,28 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.OpenApi.Models;
 using NMS.Patient.Infrastructure;
 using NMS.Patient.Service;
 using NMS.Patient.Service.IntegrationEvents;
 using Shared.Infrastructure.Core.Extensions;
 using System;
+using System.IO;
 using System.Text;
 
 namespace NMS.Patient.Web.Infrastructure.StartupExtensions
 {
+    /// <summary>
+    /// 依赖注入
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// 服务注入
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             RedisHelper.Initialization(new CSRedis.CSRedisClient(configuration.GetConnectionString("CsRedisCachingConnectionString")));//redis初始化
@@ -33,8 +44,8 @@ namespace NMS.Patient.Web.Infrastructure.StartupExtensions
             services.AddHealthChecks();//健康检查
             services.AddEventBus(configuration);//事件总线
             services.AddAuthService(configuration);//认证服务
-            services.AddApiVersion();//api版本
             services.AddController();//api控制器
+            services.AddSwaggerInfo($"{typeof(Startup).Namespace}");
             return services;
         }
         /// <summary>
@@ -43,10 +54,9 @@ namespace NMS.Patient.Web.Infrastructure.StartupExtensions
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IServiceCollection AddConfig(this IServiceCollection services, IConfiguration configuration)
+        public static void AddConfig(this IServiceCollection services, IConfiguration configuration)
         {
             //services.ConfigureStartupConfig<MongodbHostConfig>(configuration.GetSection("MongodbHostConfig"));
-            return services;
         }
 
         /// <summary>
@@ -55,11 +65,11 @@ namespace NMS.Patient.Web.Infrastructure.StartupExtensions
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
+        public static void AddEventBus(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<ISubscriberService, SubscriberService>();
             var mqconfig = configuration.GetSection("ApplicationConfiguration").GetSection("RabbitMqAddress");
-            ///消息总线配置
+            //消息总线配置
             services.AddCap(options =>
             {
                 options.UseEntityFramework<ApplicationDbContext>();
@@ -73,7 +83,6 @@ namespace NMS.Patient.Web.Infrastructure.StartupExtensions
 
                 options.UseDashboard();
             });
-            return services;
         }    
     }
 }

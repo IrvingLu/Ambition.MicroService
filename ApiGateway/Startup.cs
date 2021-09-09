@@ -6,9 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Primitives;
+using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GateWay.Api
@@ -52,6 +54,11 @@ namespace GateWay.Api
                     }
                 };
             });
+            services.AddControllers();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("ApiGateway", new OpenApiInfo { Title = "网关服务", Version = "v1" });
+            });
             services.AddOcelot().AddConsul();
         }
         // 中间件
@@ -60,7 +67,18 @@ namespace GateWay.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
+            };
+            var apis = new List<string> { "Patientv1" };
+            app.UseSwagger();
+               app.UseSwaggerUI(options =>
+               {
+                   apis.ForEach(m =>
+                   {
+                       options.SwaggerEndpoint($"/{m}/swagger.json", m);
+                   });
+               });
+            app.UseRouting();
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });//api
             app.UseOcelot().Wait();
         }
     }

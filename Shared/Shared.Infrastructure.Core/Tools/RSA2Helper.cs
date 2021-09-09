@@ -1,16 +1,16 @@
-﻿using System.Security.Cryptography;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：RSA2
+*使用说明    ：RSA2
+***********************************************************************/
+
+using System.Security.Cryptography;
 using System.Text;
 using XC.RSAUtil;
 
 namespace Shared.Infrastructure.Core.Tools
 {
-    /// <summary>
-    /// 功能描述    ：RSA2Helper  
-    /// 创 建 者    ：Administrator
-    /// 创建日期    ：2020/12/28 11:12:19 
-    /// 最后修改者  ：Administrator
-    /// 最后修改日期：2020/12/28 11:12:19 
-    /// </summary>
     public static class RSA2Helper
     {
         /// <summary>
@@ -21,12 +21,11 @@ namespace Shared.Infrastructure.Core.Tools
         /// <param name="publicKey">公钥</param>
         /// <param name="privateKey">私钥</param>
         /// <returns></returns>
-        public static string Encrypt(string text, Encoding encoding, string publicKey, string privateKey)
+        public static string Encrypt(string text, Encoding encoding)
         {
-            RSAUtilBase rsaUtil = new RsaPkcs1Util(encoding, publicKey, privateKey);
+            RSAUtilBase rsaUtil = new RsaPkcs1Util(encoding, RSAConfig.PublicKey, RSAConfig.PrivateKey);
             return rsaUtil.Encrypt(text, RSAEncryptionPadding.Pkcs1);
         }
-
         /// <summary>
         ///  RSA解密
         /// </summary>
@@ -35,14 +34,14 @@ namespace Shared.Infrastructure.Core.Tools
         /// <param name="publicKey">公钥</param>
         /// <param name="privateKey">私钥</param>
         /// <returns></returns>
-        public static string Decrypt(string cipherText, Encoding encoding, string publicKey, string privateKey)
+        public static string Decrypt(string cipherText, Encoding encoding)
         {
-            RSAUtilBase rsaUtil = new RsaPkcs1Util(encoding, publicKey, privateKey);
+            RSAUtilBase rsaUtil = new RsaPkcs1Util(encoding, RSAConfig.PublicKey, RSAConfig.PrivateKey);
             return rsaUtil.Decrypt(cipherText, RSAEncryptionPadding.Pkcs1);
         }
     }
 
-    public class RSAConfig {
+    public static class RSAConfig {
         /// <summary>
         /// 私钥
         /// </summary>
@@ -51,6 +50,5 @@ namespace Shared.Infrastructure.Core.Tools
         /// 公钥
         /// </summary>
         public static string PublicKey => "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAveQx7Sbfcx4RmlfbSkzlvRghDhgA/kypC9+LWoVzjTNVpfQnzNCqealoZWCAmeJ3Ye9YLM1oAS/8Sv1OiN2I/mtpfrP2khkYl0RZy1JC5U5KaL9DHGsyqAyUPDiYFVYCMfQwqU3sP5qu5CloGurYFqqUwfuEbsaFS5zU5GZ/acA+bmFDpI7cKz64EpIqmAqkUsnFwRyzwATjBTj5L+o8VyZMq1oqgU6JWf+8rC/EW4x1eTmIow93nE8+XULJxk2mC6QICKHSbhcIU9yf57mvv/upflEJDKzB7+AIOajchGmuJwpd+XjpcnJTHqMlIXQHZkXXZ/EV0SeSxlG8ECtnIQIDAQAB";
-
     }
 }

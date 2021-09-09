@@ -1,7 +1,11 @@
-﻿using System;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：Dapper接口
+*使用说明    ：Dapper接口
+***********************************************************************/
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Shared.Infrastructure.Core.Dapper

@@ -1,4 +1,11 @@
-﻿using MediatR;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：Mediator扩展
+*使用说明    ：用于执行领域事件
+***********************************************************************/
+
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shared.Domain.Abstractions;
 using System.Linq;
@@ -6,13 +13,6 @@ using System.Threading.Tasks;
 
 namespace Shared.Infrastructure.Core.Extensions
 {
-    /// <summary>
-    /// 功能描述    ：MediatRExtension  
-    /// 创 建 者    ：鲁岩奇
-    /// 创建日期    ：2021/2/5 14:31:54 
-    /// 最后修改者  ：Administrator
-    /// 最后修改日期：2021/2/5 14:31:54 
-    /// </summary>
     public static class MediatorExtension
     {
         public static async Task DispatchDomainEventsAsync(this IMediator mediator, DbContext ctx)

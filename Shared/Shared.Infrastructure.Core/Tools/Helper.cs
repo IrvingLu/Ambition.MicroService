@@ -1,4 +1,11 @@
-﻿using System;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：静态帮助类
+*使用说明    ：静态帮助类
+***********************************************************************/
+
+using System;
 using System.Net;
 using System.Reflection;
 using System.Text;
@@ -75,8 +82,6 @@ namespace Shared.Infrastructure.Core.Tools
             }
             return output;
         }
-
-
         /// <summary>
         /// 验证字符串是否为有效的IP地址
         /// </summary>
@@ -119,7 +124,6 @@ namespace Shared.Infrastructure.Core.Tools
             }
             return true;
         }
-
         /// <summary>
         /// 算年龄
         /// </summary>
@@ -133,7 +137,5 @@ namespace Shared.Infrastructure.Core.Tools
                 age--;
             return age;
         }
-
-
     }
 }

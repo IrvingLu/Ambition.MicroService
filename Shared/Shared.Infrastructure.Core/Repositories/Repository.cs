@@ -1,4 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：仓储类
+*使用说明    ：用于数据操作
+***********************************************************************/
+
+using Microsoft.EntityFrameworkCore;
 using Shared.Domain.Abstractions;
 using Shared.Infrastructure.Core.Core;
 using System.Collections.Generic;
@@ -7,13 +14,6 @@ using System.Threading.Tasks;
 
 namespace Shared.Infrastructure.Core.Repositories
 {
-    /// <summary>
-    /// 功能描述    ：UnitRepository  
-    /// 创 建 者    ：鲁岩奇
-    /// 创建日期    ：2021/2/5 11:14:03 
-    /// 最后修改者  ：Administrator
-    /// 最后修改日期：2021/2/5 11:14:03 
-    /// </summary>
     public class Repository<TEntity, TDbContext> : IRepository<TEntity> where TEntity : Entity where TDbContext : DbContext
     {
         protected virtual TDbContext DbContext { get; set; }
@@ -38,7 +38,7 @@ namespace Shared.Infrastructure.Core.Repositories
         /// </summary>
         /// <param name="id">Identifier</param>
         /// <returns>Entity</returns>
-        public async Task<TEntity> GetByIdAsync(object id)
+        public async Task<TEntity> FindByIdAsync(object id)
         {
             return await Entities.FindAsync(id);
         }

@@ -10,16 +10,16 @@
   "Routes": [
     ///认证服务
     {
-      "UpstreamPathTemplate": "/connect/token",
+      "UpstreamPathTemplate": "/identity/{everything}",
       "UpstreamHttpMethod": [ "Post" ],
-      "DownstreamPathTemplate": "/connect/token",
+      "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       //服务发现配置
       "ServiceName": "IdentityService",
       "LoadBalancer": "LeastConnection",
       "UseServiceDiscovery": true
     },
-    ///患者
+    ///患者服务
     {
       "UpstreamPathTemplate": "/patient/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post" ],

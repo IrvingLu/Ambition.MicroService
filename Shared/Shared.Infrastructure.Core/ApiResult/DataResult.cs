@@ -1,7 +1,17 @@
-﻿namespace Shared.Infrastructure.Core
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：带数据的基础返回数据对象
+*使用说明    ：api返回数据封装
+***********************************************************************/
+
+namespace Shared.Infrastructure.Core
 {
     public class DataResult : BaseResult
     {
+        /// <summary>
+        /// 数据
+        /// </summary>
         public object Data { get; set; }
 
         public DataResult()
@@ -18,7 +28,13 @@
 
     public class DataListResult : BaseResult
     {
+        /// <summary>
+        /// 数据
+        /// </summary>
         public object Data { get; set; }
+        /// <summary>
+        /// 总数
+        /// </summary>
         public int Count { get; set; }
 
         public DataListResult()

@@ -18,10 +18,9 @@ namespace NMS.User.Web.Controllers
     /// 最后修改者  ：Administrator
     /// 最后修改日期：2020/12/25 13:17:23 
     /// </summary>
-    [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    [Authorize]
+    [Route("api/v1/[controller]")]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class TenantController:BaseController
     {
         private readonly IMediator _mediator;
@@ -33,19 +32,10 @@ namespace NMS.User.Web.Controllers
 
         #region Post
         /// <summary>
-        /// 创建租户信息
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IActionResult> CreateServiceAsync([FromBody] CreateServiceCategoryCommand command)
-        {
-            command.TenantId = Guid.Parse(User.GetTeanantId());
-            await _mediator.Send(command);
-            return Ok(new BaseResult((int)HttpStatusCode.OK, "Success"));
-        }
-        /// <summary>
         /// 更新租户信息
         /// </summary>
         /// <returns></returns>
+        [HttpPost("update")]
         public async Task<IActionResult> UpdateTenantInfoAsync([FromBody] UpdateTenantInfoCommand command)
         {
             command.Id = Guid.Parse(User.GetTeanantId());

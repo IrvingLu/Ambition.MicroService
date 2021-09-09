@@ -1,4 +1,11 @@
-﻿using System;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：redis工具类
+*使用说明    ：需要redis时候调用
+***********************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,7 +33,6 @@ namespace Shared.Infrastructure.Core.Redis
             RedisHelper.Set(key, result, CacheDefaults.CacheTime);
             return result;
         }
-
         /// <summary>
         /// 获取缓存
         /// </summary>
@@ -54,8 +60,6 @@ namespace Shared.Infrastructure.Core.Redis
         {
             await RedisHelper.DelAsync(keys);
         }
-
-
         /// <summary>
         /// 写入缓存，注意：缓存过期时间手动设置随机值，防止所有key同一时间大面积失效，造成缓存雪崩！！！
         /// 通过RedisType判断使用redis哪种存储类型
@@ -89,9 +93,6 @@ namespace Shared.Infrastructure.Core.Redis
                     break;
             }
         }
-
-
-
         /// <summary>
         /// 删除缓存
         /// </summary>
@@ -114,6 +115,12 @@ namespace Shared.Infrastructure.Core.Redis
             }
 
         }
+        /// <summary>
+        /// 设置key/valuue
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="list"></param>
         public void Set<T>(string key, T list)
         {
             if (RedisHelper.Exists(key))

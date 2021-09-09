@@ -1,12 +1,22 @@
-﻿using IdentityServer4.AccessTokenValidation;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：中间件扩展
+*使用说明    ：中间件扩展
+***********************************************************************/
+
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Shared.Infrastructure.Core.Utility;
 using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shared.Infrastructure.Core.Extensions
@@ -19,7 +29,7 @@ namespace Shared.Infrastructure.Core.Extensions
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IServiceCollection AddCorsConfig(this IServiceCollection services)
+        public static void AddCorsConfig(this IServiceCollection services)
         {
             services.AddCors(options =>
             {
@@ -29,33 +39,13 @@ namespace Shared.Infrastructure.Core.Extensions
                                     .AllowAnyHeader()
                                     .AllowCredentials());
             });
-            return services;
-        }
-        /// <summary>
-        /// 接口版本注入
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
-        public static IServiceCollection AddApiVersion(this IServiceCollection services)
-        {
-            services.AddApiVersioning((o) =>
-            {
-                o.ReportApiVersions = true;//可选配置，设置为true时，header返回版本信息
-                o.DefaultApiVersion = new ApiVersion(1, 0);//默认版本，请求未指明版本的求默认认执行版本1.0的API
-                o.AssumeDefaultVersionWhenUnspecified = true;//是否启用未指明版本API，指向默认版本
-            }).AddVersionedApiExplorer(option =>
-            {
-                option.GroupNameFormat = "'v'VVVV";//api组名格式
-                option.AssumeDefaultVersionWhenUnspecified = true;//是否提供API版本服务
-            });
-            return services;
         }
         /// <summary>
         /// 控制器注入
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection AddController(this IServiceCollection services)
+        public static void AddController(this IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson(options =>
             {
@@ -66,24 +56,6 @@ namespace Shared.Infrastructure.Core.Extensions
                 // 设置时间格式
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
-            return services;
-        }
-        /// <summary>
-        /// 配置
-        /// </summary>
-        /// <typeparam name="TConfig"></typeparam>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        /// <returns></returns>
-        public static TConfig ConfigureStartupConfig<TConfig>(this IServiceCollection services, IConfiguration configuration) where TConfig : class, new()
-        {
-            //创建配置
-            var config = new TConfig();
-            //绑定
-            configuration.Bind(config);
-            //注册
-            services.AddSingleton(config);
-            return config;
         }
         /// <summary>
         /// 资源服务器注入
@@ -91,7 +63,7 @@ namespace Shared.Infrastructure.Core.Extensions
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static IServiceCollection AddAuthService(this IServiceCollection services, IConfiguration configuration)
+        public static void AddAuthService(this IServiceCollection services, IConfiguration configuration)
         {
             //资源服务器配置
             services.AddAuthentication(options =>
@@ -121,7 +93,51 @@ namespace Shared.Infrastructure.Core.Extensions
                     }
                 };
             });
-            return services;
+        }
+        /// <summary>
+        /// 添加Swagger
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static void AddSwaggerInfo(this IServiceCollection services, string apiName)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                typeof(ApiVersionEnum).GetEnumNames().ToList().ForEach(version =>
+                {
+                    c.SwaggerDoc(version, new OpenApiInfo()
+                    {
+                        Title = apiName,
+                        Version = version,
+                        Description = $"{version} 版本，可根据需要选择",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "东软医疗系统股份有限公司",
+                            Email = "nms-admin@neusoftmedical.com",
+                            Url = new Uri("http://www.neusoftmedical.com/")
+                        },
+                    });
+                });
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, apiName + ".xml");
+                c.IncludeXmlComments(xmlPath, true);
+            });
+        }
+        /// <summary>
+        /// 配置
+        /// </summary>
+        /// <typeparam name="TConfig"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static TConfig ConfigureStartupConfig<TConfig>(this IServiceCollection services, IConfiguration configuration) where TConfig : class, new()
+        {
+            //创建配置
+            var config = new TConfig();
+            //绑定
+            configuration.Bind(config);
+            //注册
+            services.AddSingleton(config);
+            return config;
         }
     }
 }

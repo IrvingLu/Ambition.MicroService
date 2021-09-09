@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：异常处理中间件
+*使用说明    ：用于全局异常处理
+***********************************************************************/
+
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Shared.Infrastructure.Core.Core;
@@ -25,13 +32,13 @@ namespace Shared.Infrastructure.Core.Extensions
                     await _next.Invoke(context);
                 }
             }
-            ///内部可识别逻辑异常
+            //内部可识别逻辑异常
             catch (InternalException ex)
             {
                 var statusCode = 800;
                 await HandleExceptionAsync(context, statusCode, ex.Message);
             }
-            ///代码异常
+            //代码异常
             catch (Exception ex)
             {
                 _logger.LogError(ex.StackTrace);

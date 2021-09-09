@@ -28,7 +28,7 @@ namespace NMS.Patient.Web
         /// 中间件管道
         /// </summary>
         /// <param name="app"></param>
-        /// <param name="env"></param>
+        /// <param name="lifetime"></param>
         public void Configure(IApplicationBuilder app, IHostApplicationLifetime lifetime)
         {
             app.UseConfig(Configuration, lifetime);

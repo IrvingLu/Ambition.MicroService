@@ -29,6 +29,7 @@ namespace NMS.User.Web
         /// </summary>
         /// <param name="app"></param>
         /// <param name="env"></param>
+        /// <param name="lifetime"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
         {
             app.UseConfig(Configuration, lifetime);

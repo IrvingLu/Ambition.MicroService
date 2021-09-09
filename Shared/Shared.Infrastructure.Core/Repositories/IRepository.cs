@@ -1,19 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：仓储接口类
+*使用说明    ：仓储类继承
+***********************************************************************/
+
 using Shared.Domain.Abstractions;
 using Shared.Infrastructure.Core.Core;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Shared.Infrastructure.Core.Repositories
 {
-    /// <summary>
-    /// 功能描述    ：IUnitRepository  
-    /// 创 建 者    ：鲁岩奇
-    /// 创建日期    ：2021/2/5 11:14:12 
-    /// 最后修改者  ：Administrator
-    /// 最后修改日期：2021/2/5 11:14:12 
-    /// </summary>
     public interface IRepository<TEntity> where TEntity : Entity 
     {
         IQueryable<TEntity> Table { get; }
@@ -22,6 +20,6 @@ namespace Shared.Infrastructure.Core.Repositories
         Task AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task RemoveAsync(TEntity entity);
-        Task<TEntity> GetByIdAsync(object id);
+        Task<TEntity> FindByIdAsync(object id);
     }
 }

@@ -1,28 +1,34 @@
-﻿using Dapper;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：Dapper封装
+*使用说明    ：Dapper封装
+***********************************************************************/
+
+using Dapper;
 using Microsoft.Extensions.Configuration;
-using MySqlConnector;
 using Npgsql;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Shared.Infrastructure.Core.Dapper
 {
-    /// <summary>
-    /// 功能描述    ：Dapper封装
-    /// 创 建 者    ：鲁岩奇
-    /// 创建日期    ：2020/12/29 16:33:12 
-    /// 最后修改者  ：Administrator
-    /// 最后修改日期：2020/12/29 16:33:12 
-    /// </summary>
     public class DapperQuery: IDapperQuery
     {
+        #region Fields
         private readonly IConfiguration _configuration;
         private readonly string connectionString;
+        #endregion
+
+        #region Ctor
         public DapperQuery(IConfiguration configuration)
         {
             _configuration = configuration;
             connectionString = _configuration.GetConnectionString("Postgresql");
         }
+        #endregion
+
+        #region Methods
         /// <summary>
         /// 查询列表带参数
         /// </summary>
@@ -45,5 +51,6 @@ namespace Shared.Infrastructure.Core.Dapper
             using NpgsqlConnection con = new(connectionString);
             return await con.QueryFirstOrDefaultAsync<TEntity>(sql, param);
         }
+        #endregion
     }
 }

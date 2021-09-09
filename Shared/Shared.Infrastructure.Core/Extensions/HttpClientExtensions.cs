@@ -1,8 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：请求扩展
+*使用说明    ：用于http请求
+***********************************************************************/
+
+using Newtonsoft.Json;
 using Shared.Infrastructure.Core.Tools;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -10,9 +15,6 @@ using System.Threading.Tasks;
 
 namespace Shared.Infrastructure.Core.Extensions
 {
-    /// <summary>
-    /// httpclient扩展封装
-    /// </summary>
     public static class HttpClientExtensions
     {
         /// <summary>
@@ -30,7 +32,6 @@ namespace Shared.Infrastructure.Core.Extensions
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             return await httpClient.PostAsync(requestUri, content, cancellationToken);
         }
-
         /// <summary>
         /// formData请求
         /// </summary>
@@ -44,7 +45,6 @@ namespace Shared.Infrastructure.Core.Extensions
             formdata.Headers.ContentType.MediaType = "multipart/form-data";
             return await httpClient.PostAsync(requestUri, formdata, cancellationToken);
         }
-
         /// <summary>
         /// get方法
         /// </summary>
@@ -59,6 +59,5 @@ namespace Shared.Infrastructure.Core.Extensions
             requestUri += pramas;
             return await httpClient.GetAsync(requestUri, cancellationToken);
         }
-
     }
 }

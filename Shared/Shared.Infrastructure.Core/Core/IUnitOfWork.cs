@@ -1,16 +1,16 @@
-﻿using System;
+﻿/************************************************************************
+*本页作者    ：鲁岩奇
+*创建日期    ：2020/11/10 9:51:36 
+*功能描述    ：工作单元接口
+*使用说明    ：工作单元接口
+***********************************************************************/
+
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Shared.Infrastructure.Core.Core
 {
-    /// <summary>
-    /// 功能描述    ：IUnitOfWork  
-    /// 创 建 者    ：鲁岩奇
-    /// 创建日期    ：2021/2/5 13:44:58 
-    /// 最后修改者  ：Administrator
-    /// 最后修改日期：2021/2/5 13:44:58 
-    /// </summary>
     public interface IUnitOfWork : IDisposable
     {
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

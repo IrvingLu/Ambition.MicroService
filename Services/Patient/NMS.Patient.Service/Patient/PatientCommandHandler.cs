@@ -56,7 +56,7 @@ namespace NMS.Patient.Service.Patient
         /// <returns></returns>
         public async Task<Unit> Handle(DeletePatientCommand request, CancellationToken cancellationToken)
         {
-            var data= await _patientRepository.GetByIdAsync(request.Id);
+            var data= await _patientRepository.FindByIdAsync(request.Id);
             await _patientRepository.RemoveAsync(data);
             await _patientRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
             return new Unit();
