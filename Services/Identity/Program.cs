@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Shared.Infrastructure.Core.Core;
+using System;
 using System.Net;
 
 namespace NMS.Identity.Web
@@ -17,13 +20,13 @@ namespace NMS.Identity.Web
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    IConfiguration config = new ConfigurationBuilder().Add(new JsonConfigurationSource { Path = "appsettings.json", ReloadOnChange = true }).Build();
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseKestrel(
-                    options =>
+                    webBuilder.UseKestrel(options =>
                     {
                         options.Limits.MinRequestBodyDataRate = null;//½â¾ö
                         options.AddServerHeader = false;
-                        options.Listen(IPAddress.Any, 5001);
+                        options.Listen(IPAddress.Any, Convert.ToInt32(config["ApplicationConfiguration:ServiceAddress:Port"]));
                     });
                 }).UseSerilog();
     }

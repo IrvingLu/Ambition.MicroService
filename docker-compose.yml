@@ -8,6 +8,8 @@ services:
       dockerfile: ApiGateway/Dockerfile
     ports:
       - "5000:5000"
+    #volumes:
+    #  - /lib
   nms.identity.web:
     image: ${DOCKER_REGISTRY-}nmsidentityweb
     build:
@@ -15,7 +17,8 @@ services:
       dockerfile: Services/Identity/Dockerfile
     ports:
       - "5001:5001"
-
+    #volumes:
+    #  - /lib
   nms.patient.web:
     image: ${DOCKER_REGISTRY-}nmspatientweb
     build:
@@ -23,7 +26,8 @@ services:
       dockerfile: Services/Patient/NMS.Patient.Web/Dockerfile
     ports:
       - "5002:5002"
-
+    #volumes:
+    #  - /lib
   nms.user.web:
     image: ${DOCKER_REGISTRY-}nmsuserweb
     build:
@@ -31,3 +35,5 @@ services:
       dockerfile: Services/User/NMS.User.Web/Dockerfile
     ports:
       - "5003:5003"
+    #volumes:
+    #  - /lib

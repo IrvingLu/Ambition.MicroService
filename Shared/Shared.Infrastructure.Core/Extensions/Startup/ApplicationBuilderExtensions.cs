@@ -29,7 +29,7 @@ namespace Shared.Infrastructure.Core.Extensions
 
             lifetime.ApplicationStarted.Register(() =>
             {
-                var serviceConfig = Configuration.GetSection("ApplicationConfiguration").GetSection("SerivceAddress");
+                var serviceConfig = Configuration.GetSection("ApplicationConfiguration").GetSection("ServiceAddress");
                 var client = new ConsulClient(option => option.Address = new Uri(Configuration.GetSection("ApplicationConfiguration").GetSection("ConsulAddress").Value));
                 ///健康检查
                 var httpCheck = new AgentServiceCheck()
