@@ -6,31 +6,28 @@ services:
     build:
       context: .
       dockerfile: ApiGateway/Dockerfile
-
-  pet.file.web:
-    image: ${DOCKER_REGISTRY-}petfileweb
+    ports:
+      - "5000:5000"
+  nms.identity.web:
+    image: ${DOCKER_REGISTRY-}nmsidentityweb
     build:
       context: .
-      dockerfile: Pet.File.Web/Dockerfile
+      dockerfile: Services/Identity/Dockerfile
+    ports:
+      - "5001:5001"
 
-
-  pet.identity.web:
-    image: ${DOCKER_REGISTRY-}petidentityweb
+  nms.patient.web:
+    image: ${DOCKER_REGISTRY-}nmspatientweb
     build:
       context: .
-      dockerfile: Services/Identity/Identity.Web/Dockerfile
+      dockerfile: Services/Patient/NMS.Patient.Web/Dockerfile
+    ports:
+      - "5002:5002"
 
-
-  pet.reservation.web:
-    image: ${DOCKER_REGISTRY-}petreservationweb
+  nms.user.web:
+    image: ${DOCKER_REGISTRY-}nmsuserweb
     build:
       context: .
-      dockerfile: Services/Reservation/Pet.Web/Dockerfile
-
-
-  pet.user.web:
-    image: ${DOCKER_REGISTRY-}petuserweb
-    build:
-      context: .
-      dockerfile: Services/User/Pet.Web/Dockerfile
-
+      dockerfile: Services/User/NMS.User.Web/Dockerfile
+    ports:
+      - "5003:5003"

@@ -31,7 +31,7 @@ namespace NMS.Patient.Web
                     {
                         options.Limits.MinRequestBodyDataRate = null;//½â¾ö
                         options.AddServerHeader = false;
-                        options.Listen(IPAddress.Any, 5003);
+                        options.Listen(IPAddress.Any, 5002);
                     });
                 }).UseSerilog().UseServiceProviderFactory(new AutofacServiceProviderFactory());
     }

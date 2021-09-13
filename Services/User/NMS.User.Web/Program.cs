@@ -24,7 +24,7 @@ namespace NMS.User.Web
                     {
                         options.Limits.MinRequestBodyDataRate = null;//½â¾ö
                         options.AddServerHeader = false;
-                        options.Listen(IPAddress.Any, 5004);
+                        options.Listen(IPAddress.Any, 5003);
                     });
                 }).UseSerilog().UseServiceProviderFactory(new AutofacServiceProviderFactory());
     }
