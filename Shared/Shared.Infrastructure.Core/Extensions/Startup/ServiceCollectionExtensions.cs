@@ -57,43 +57,7 @@ namespace Shared.Infrastructure.Core.Extensions
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
         }
-        /// <summary>
-        /// 资源服务器注入
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        /// <returns></returns>
-        public static void AddAuthService(this IServiceCollection services, IConfiguration configuration)
-        {
-            //资源服务器配置
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddIdentityServerAuthentication(options =>
-            {
-                options.Authority = configuration["ApplicationConfiguration:IdentityAddress"];
-                options.RequireHttpsMetadata = false;
-                options.ApiName = "api";
-                options.Events = new JwtBearerEvents
-                {
-                    OnMessageReceived = context =>
-                    {
-                        if (context.Request.Query.TryGetValue("token", out StringValues token))
-                        {
-                            context.Token = token;
-                        }
-                        return Task.CompletedTask;
-                    },
-                    OnAuthenticationFailed = context =>
-                    {
-                        var te = context.Exception;
-                        return Task.CompletedTask;
-                    }
-                };
-            });
-        }
+ 
         /// <summary>
         /// 添加Swagger
         /// </summary>
@@ -138,6 +102,45 @@ namespace Shared.Infrastructure.Core.Extensions
             //注册
             services.AddSingleton(config);
             return config;
+        }
+
+        /// <summary>
+        /// 资源服务器注入
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        [Obsolete]
+        public static void AddAuthService(this IServiceCollection services, IConfiguration configuration)
+        {
+            //资源服务器配置
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddIdentityServerAuthentication(options =>
+            {
+                options.Authority = configuration["ApplicationConfiguration:IdentityAddress"];
+                options.RequireHttpsMetadata = false;
+                options.ApiName = "api";
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        if (context.Request.Query.TryGetValue("token", out StringValues token))
+                        {
+                            context.Token = token;
+                        }
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        var te = context.Exception;
+                        return Task.CompletedTask;
+                    }
+                };
+            });
         }
     }
 }

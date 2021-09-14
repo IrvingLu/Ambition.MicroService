@@ -9,6 +9,7 @@ using Microsoft.Extensions.Primitives;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
+using Ocelot.Provider.Polly;
 using System.Threading.Tasks;
 
 namespace GateWay.Api
@@ -52,7 +53,7 @@ namespace GateWay.Api
                     }
                 };
             });
-            services.AddOcelot().AddConsul();
+            services.AddOcelot().AddConsul().AddPolly();
         }
         // ÖÐ¼ä¼þ
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -21,34 +21,79 @@
     },
     ///患者服务
     {
+      //上游
       "UpstreamPathTemplate": "/patient/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
+      //下游
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       //服务
-      "ServiceName": "PatientService",
-      "LoadBalancer": "LeastConnection",
+      "ServiceName": "PatientService", //服务名称
+      //负载均衡策略
+      "LoadBalancer": "LeastConnection", //RoundRobin ,NoLoadBalance
+      ///服务发现
       "UseServiceDiscovery": true,
+      ///限流
+      "RateLimitOptions": {
+        "ClientWhitelist": [], //白名单
+        "EnableRateLimiting": false, //是否启用限流
+        "Period": "1s", //Period 统计时间段：1s, 5m, 1h, 1d
+        "PeriodTimespan": 1, // 多少秒之后客户端可以重试
+        "Limit": 1 //Limit 在统计时间段内允许的最大请求数量
+      },
+      ///服务质量与熔断
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3, //允许多少个异常请求
+        "DurationOfBreak": 5, // 熔断的时间，单位为秒
+        "TimeoutValue": 5000 //如果下游请求的处理时间超过多少则将请求设置为超时
+      },
+      ///解析Claims，将用户信息添加到头
+      "AddHeadersToRequest": {
+        "UserId": "Claims[Id] > value"
+      },
       //启用认证
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "NmsKey",
-        "AllowedScopes": []
+        "AllowedScopes": [] //这里的Scopes将从当前 token 中的 claims中来获取，我们的鉴权服务将依靠于它来实现 。当前路由的下游API需要某个权限时，我们需要在这里声明 。和oAuth2中的scope意义一致。
       }
     },
     ///用户服务
     {
+      //上游
       "UpstreamPathTemplate": "/user/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
+      //下游
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamScheme": "http",
       //服务
-      "ServiceName": "UserService",
-      "LoadBalancer": "LeastConnection",
+      "ServiceName": "UserService", //服务名称
+      //负载均衡策略
+      "LoadBalancer": "LeastConnection", //RoundRobin ,NoLoadBalance
+      ///服务发现
       "UseServiceDiscovery": true,
+      ///限流
+      "RateLimitOptions": {
+        "ClientWhitelist": [], //白名单
+        "EnableRateLimiting": false, //是否启用限流
+        "Period": "1s", //Period 统计时间段：1s, 5m, 1h, 1d
+        "PeriodTimespan": 1, // 多少秒之后客户端可以重试
+        "Limit": 1 //Limit 在统计时间段内允许的最大请求数量
+      },
+      ///服务质量与熔断
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3, //允许多少个异常请求
+        "DurationOfBreak": 5, // 熔断的时间，单位为秒
+        "TimeoutValue": 5000 //如果下游请求的处理时间超过多少则将请求设置为超时
+      },
+      ///解析Claims，将用户信息添加到头
+      "AddHeadersToRequest": {
+        "UserId": "Claims[Id] > value"
+      },
       //启用认证
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "NmsKey",
         "AllowedScopes": []
+
       }
     }
   ]

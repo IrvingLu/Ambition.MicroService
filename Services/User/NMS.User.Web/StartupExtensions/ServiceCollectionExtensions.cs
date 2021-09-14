@@ -41,7 +41,6 @@ namespace NMS.User.Web.Infrastructure.StartupExtensions
             services.AddMediatR(typeof(ServiceStartup));//CQRS
             services.AddHealthChecks();//健康检查
             services.AddEventBus(configuration);//事件总线
-            services.AddAuthService(configuration);//认证服务
             services.AddController();//api控制器
             services.AddIdentity<ApplicationUser,ApplicationRole>()
                   .AddEntityFrameworkStores<ApplicationDbContext>()

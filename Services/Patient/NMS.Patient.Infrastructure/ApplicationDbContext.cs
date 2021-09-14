@@ -102,9 +102,6 @@ namespace NMS.Patient.Infrastructure
             }
         }
 
-
-
-
         #endregion
 
         #region UnitWork
