@@ -37,6 +37,7 @@ namespace NMS.Patient.Service.Patient
         public async Task<Unit> Handle(CreatePatientCommand request, CancellationToken cancellationToken)
         {
             var data = new Domain.Patient.Patient(request.Name);
+            
             await _capBus.PublishAsync("user.services.show.time", DateTime.Now);
             await _patientRepository.AddAsync(data);
             await _patientRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);

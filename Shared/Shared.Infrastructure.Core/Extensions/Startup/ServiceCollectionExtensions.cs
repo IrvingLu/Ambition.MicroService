@@ -8,10 +8,12 @@
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
 using Microsoft.OpenApi.Models;
+using NConsul.AspNetCore;
 using Newtonsoft.Json;
 using Shared.Infrastructure.Core.Utility;
 using System;
@@ -23,6 +25,42 @@ namespace Shared.Infrastructure.Core.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+
+        /// <summary>
+        /// GRPC服务注册
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        public static void AddConsulGrpc(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddGrpc();
+            services.AddConsul(configuration["ConsulAddress"])
+                .AddGRPCHealthCheck(configuration["Consul:Address"] + ":" + Convert.ToInt32(configuration["Consul:GrpcPort"]))
+                .RegisterService(configuration["Consul:Name"] + "Grpc", configuration["Consul:Address"], Convert.ToInt32(configuration["Consul:GrpcPort"]), null);
+        }
+        /// <summary>
+        /// eventbus事件总线
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static void AddEventBus<TContext>(this IServiceCollection services, IConfiguration configuration) where TContext : DbContext
+        {
+            //消息总线配置
+            services.AddCap(options =>
+            {
+                options.UseEntityFramework<TContext>();
+                options.UseRabbitMQ(options =>
+                {
+                    options.HostName = configuration["RabbitMqAddress:HostName"];
+                    options.Port = Convert.ToInt32(configuration["RabbitMqAddress:Port"]);
+                    options.UserName = configuration["RabbitMqAddress:UserName"];
+                    options.Password = configuration["RabbitMqAddress:Password"];
+                });
+
+                options.UseDashboard();
+            });
+        }
         /// <summary>
         /// 跨域配置
         /// </summary>
@@ -57,7 +95,7 @@ namespace Shared.Infrastructure.Core.Extensions
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
         }
- 
+
         /// <summary>
         /// 添加Swagger
         /// </summary>

@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NMS.User.Web.Infrastructure;
-using NMS.User.Web.Infrastructure.StartupExtensions;
 
 namespace NMS.User.Web
 {

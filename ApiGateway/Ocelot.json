@@ -10,9 +10,9 @@
   "Routes": [
     ///认证服务
     {
-      "UpstreamPathTemplate": "/identity/{everything}",
+      "UpstreamPathTemplate": "/identity/{url}",
       "UpstreamHttpMethod": [ "Post" ],
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/{url}",
       "DownstreamScheme": "http",
       //服务
       "ServiceName": "IdentityService",
@@ -22,10 +22,10 @@
     ///患者服务
     {
       //上游
-      "UpstreamPathTemplate": "/patient/{everything}",
+      "UpstreamPathTemplate": "/patient/{url}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
       //下游
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/{url}",
       "DownstreamScheme": "http",
       //服务
       "ServiceName": "PatientService", //服务名称
@@ -60,10 +60,10 @@
     ///用户服务
     {
       //上游
-      "UpstreamPathTemplate": "/user/{everything}",
+      "UpstreamPathTemplate": "/user/{url}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
       //下游
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/{url}",
       "DownstreamScheme": "http",
       //服务
       "ServiceName": "UserService", //服务名称
@@ -93,7 +93,6 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "NmsKey",
         "AllowedScopes": []
-
       }
     }
   ]

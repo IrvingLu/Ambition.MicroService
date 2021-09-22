@@ -39,7 +39,7 @@ namespace Shared.Infrastructure.Core.Core
 
         private static ElasticsearchSinkOptions ConfigureElasticSink(IConfigurationRoot configuration, string environment)
         {
-            return new ElasticsearchSinkOptions(new Uri(configuration["ApplicationConfiguration:ElkAddress"]))
+            return new ElasticsearchSinkOptions(new Uri(configuration["ElkAddress"]))
             {
                 AutoRegisterTemplate = true,
                 IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name.ToLower().Replace(".", "-")}",

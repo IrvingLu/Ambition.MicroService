@@ -25,7 +25,7 @@ namespace GateWay.Api
            {
                IConfiguration config = new ConfigurationBuilder().Add(new JsonConfigurationSource { Path = "appsettings.json", ReloadOnChange = true }).Build();
                webBuilder.UseStartup<Startup>();       
-               webBuilder.UseKestrel(options =>
+               webBuilder.UseKestrel(options =>   
                {
                    options.Limits.MinRequestBodyDataRate = null;//½â¾ö
                    options.AddServerHeader = false;

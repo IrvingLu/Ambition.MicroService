@@ -6,7 +6,7 @@ using NMS.Identity.Web.Config;
 using NMS.Identity.Web.Domain;
 using Shared.Infrastructure.Core.Extensions;
 
-namespace NMS.Identity.Web.StartupExtensions
+namespace NMS.Identity.Web.Infrastructure
 {
     public static class ServiceCollectionExtensions
     {

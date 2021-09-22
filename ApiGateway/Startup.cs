@@ -32,7 +32,7 @@ namespace GateWay.Api
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddIdentityServerAuthentication("NmsKey", options =>
             {
-                options.Authority = Configuration["ApplicationConfiguration:IdentityAddress"];
+                options.Authority = Configuration["IdentityAddress"];
                 options.RequireHttpsMetadata = false;
                 options.ApiName = "api";
                 options.ApiSecret = "secret";

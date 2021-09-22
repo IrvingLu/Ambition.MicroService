@@ -9,6 +9,7 @@ using Autofac;
 using NMS.Patient.Infrastructure;
 using NMS.Patient.Infrastructure.Repositories;
 using Shared.Infrastructure.Core.Dapper;
+using Shared.Infrastructure.Core.Grpc;
 using Module = Autofac.Module;
 
 namespace NMS.Patient.Web.Infrastructure
@@ -17,12 +18,14 @@ namespace NMS.Patient.Web.Infrastructure
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //data
-            builder.RegisterGeneric(typeof(PatientRepository<>)).As(typeof(IPatientRepository<>)).InstancePerLifetimeScope();
+            //EF上下文
             builder.RegisterType<ApplicationDbContext>().AsSelf();
-            builder.RegisterType<DapperQuery>().As<IDapperQuery>().InstancePerLifetimeScope();
-            //注入command
-            //builder.RegisterAssemblyTypes(typeof(CommandHandler).GetTypeInfo().Assembly);
+            //仓储服务
+            builder.RegisterGeneric(typeof(PatientRepository<>)).As(typeof(IPatientRepository<>)).InstancePerLifetimeScope();
+            //Dapper服务
+            builder.RegisterType<DapperQuery>().As<IDapperQuery>().InstancePerLifetimeScope();          
+            //Grpc服务
+            builder.RegisterType<GrpcService>().InstancePerLifetimeScope();
         }
     }
 }

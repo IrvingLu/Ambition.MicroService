@@ -11,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NMS.Patient.Web.Infrastructure;
-using NMS.Patient.Web.Infrastructure.StartupExtensions;
 
 namespace NMS.Patient.Web
 {

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NMS.Identity.Web.StartupExtensions;
+using NMS.Identity.Web.Infrastructure;
 
 namespace NMS.Identity.Web
 {

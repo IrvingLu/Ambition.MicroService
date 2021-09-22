@@ -26,16 +26,15 @@ namespace Shared.Infrastructure.Core.Extensions
         /// <param name="lifetime"></param>
         public static void RegisterToConsul(this IApplicationBuilder app, IConfiguration Configuration, IHostApplicationLifetime lifetime)
         {
-
             lifetime.ApplicationStarted.Register(() =>
             {
-                var serviceConfig = Configuration.GetSection("ApplicationConfiguration").GetSection("ServiceAddress");
-                var client = new ConsulClient(option => option.Address = new Uri(Configuration.GetSection("ApplicationConfiguration").GetSection("ConsulAddress").Value));
+                var serviceConfig = Configuration.GetSection("Consul");
+                var client = new ConsulClient(option => option.Address = new Uri(Configuration["ConsulAddress"]));
                 ///健康检查
                 var httpCheck = new AgentServiceCheck()
                 {
                     DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(10),//服务出错1分钟之后，取消服务
-                    Interval = TimeSpan.FromSeconds(10),///检查周期
+                    Interval = TimeSpan.FromSeconds(2),///检查周期
                     HTTP = "http://" + serviceConfig.GetSection("Address").Value + ":" + Convert.ToInt32(serviceConfig.GetSection("Port").Value) + "/health"
                 };
                 ///服务注册
@@ -49,12 +48,12 @@ namespace Shared.Infrastructure.Core.Extensions
                 };
                 client.Agent.ServiceRegister(agentReg).ConfigureAwait(false);
             });
-
             lifetime.ApplicationStopping.Register(() =>
             {
-                var client = new ConsulClient(option => option.Address = new Uri(Configuration.GetSection("ApplicationConfiguration").GetSection("ConsulAddress").Value));
+                var client = new ConsulClient(option => option.Address = new Uri(Configuration.GetSection("Consul").GetSection("ConsulAddress").Value));
                 client.Agent.ServiceDeregister(serviceId).ConfigureAwait(false);
             });
+
         }
         /// <summary>
         /// 异常处理中间件

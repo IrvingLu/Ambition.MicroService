@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "PatientGrpcService";
+
+package PatientGrpc;
+
+// The greeting service definition.
+service PatientGrpc {
+  // Sends a greeting
+  rpc GetPatientInfo (DetailRequest) returns (DetailResult);
+}
+
+// The request message containing the user's name.
+message DetailRequest {
+  string id = 1;
+  string name=2;
+}
+
+// The response message containing the greetings.
+message DetailResult {
+  string name = 1;
+}

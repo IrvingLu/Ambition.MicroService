@@ -26,6 +26,7 @@ services:
       dockerfile: Services/Patient/NMS.Patient.Web/Dockerfile
     ports:
       - "5002:5002"
+      - "15002:15002"
     #volumes:
     #  - /lib
   nms.user.web:

@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using NMS.Patient.Service.Patient.Command;
 using NMS.User.Web.Controllers;
 using Shared.Infrastructure.Core.BaseDto;
-using Shared.Infrastructure.Core.Extensions;
 using System.Threading.Tasks;
 
 namespace NMS.Patient.Web.Controllers

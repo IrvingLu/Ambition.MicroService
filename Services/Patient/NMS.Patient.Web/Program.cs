@@ -7,6 +7,7 @@
 
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.Hosting;
@@ -20,7 +21,7 @@ namespace NMS.Patient.Web
     public class Program
     {
         public static void Main(string[] args)
-        {   
+        {
             LogConfig.ConfigureLogging();
             CreateHostBuilder(args).Build().Run();
         }
@@ -29,13 +30,14 @@ namespace NMS.Patient.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     IConfiguration config = new ConfigurationBuilder().Add(new JsonConfigurationSource { Path = "appsettings.json", ReloadOnChange = true }).Build();
-                    webBuilder.UseStartup<Startup>();
                     webBuilder.UseKestrel(options =>
                     {
                         options.Limits.MinRequestBodyDataRate = null;//½â¾ö
                         options.AddServerHeader = false;
-                        options.Listen(IPAddress.Any, Convert.ToInt32(config["ApplicationConfiguration:ServiceAddress:Port"]));
+                        options.Listen(IPAddress.Any, Convert.ToInt32(config["Consul:Port"]), o => o.Protocols = HttpProtocols.Http1);
+                        options.Listen(IPAddress.Any, Convert.ToInt32(config["Consul:GrpcPort"]), o => o.Protocols = HttpProtocols.Http2);
                     });
+                    webBuilder.UseStartup<Startup>();
                 }).UseSerilog().UseServiceProviderFactory(new AutofacServiceProviderFactory());
     }
 }

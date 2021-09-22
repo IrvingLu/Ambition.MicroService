@@ -10,8 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using NMS.Patient.Infrastructure;
 using Shared.Infrastructure.Core.Extensions;
+using Shared.Infrastructure.Core.GrpcService;
 
-namespace NMS.Patient.Web.Infrastructure.StartupExtensions
+namespace NMS.Patient.Web.Infrastructure
 {
     /// <summary>
     /// 扩展
@@ -28,14 +29,18 @@ namespace NMS.Patient.Web.Infrastructure.StartupExtensions
         {
             app.UseCors("AllowSameDomain");//跨域
             app.UseAuthentication();//认证
-            //app.UseAuthorization();//授权
             app.UseHealthChecks("/health");//健康检查
             app.UseApiVersioning();//api版本
             app.UseErrorHandling();//异常中间件
             app.RegisterToConsul(Configuration, lifetime);//服务注册
             app.UseSwaggerInfo();//Swagger
+            //Api&&Grpc
             app.UseRouting();
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });//api
+            app.UseEndpoints(endpoints => { 
+                endpoints.MapControllers();
+                endpoints.MapGrpcService<HealthCheckService>();
+                endpoints.MapGrpcService<GrpsService.PatientGrpcService>(); 
+            });
             DbContextSeed.SeedAsync(app.ApplicationServices).Wait();// 初始化数据
         }
     }
