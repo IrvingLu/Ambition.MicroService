@@ -50,7 +50,7 @@ namespace Shared.Infrastructure.Core.Extensions
             });
             lifetime.ApplicationStopping.Register(() =>
             {
-                var client = new ConsulClient(option => option.Address = new Uri(Configuration.GetSection("Consul").GetSection("ConsulAddress").Value));
+                var client = new ConsulClient(option => option.Address = new Uri(Configuration.GetSection("ConsulAddress").Value));
                 client.Agent.ServiceDeregister(serviceId).ConfigureAwait(false);
             });
 

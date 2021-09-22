@@ -26,7 +26,7 @@ namespace NMS.Identity.Web
                     {
                         options.Limits.MinRequestBodyDataRate = null;//½â¾ö
                         options.AddServerHeader = false;
-                        options.Listen(IPAddress.Any, Convert.ToInt32(config["Consul:Port"]),o=>o.Protocols=Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1);
+                        options.Listen(IPAddress.Any, Convert.ToInt32(config["Consul:Port"]));
                     });
                 }).UseSerilog();
     }

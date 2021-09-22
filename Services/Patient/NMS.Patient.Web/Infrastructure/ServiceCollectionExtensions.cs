@@ -46,8 +46,9 @@ namespace NMS.Patient.Web.Infrastructure
             services.AddAutoMapper(typeof(ServiceStartup));//automapper
             services.AddMediatR(typeof(ServiceStartup));//CQRS
             services.AddHealthChecks();//健康检查
-            services.AddTransient<ISubscriberService, SubscriberService>();//订阅服务
             services.AddEventBus<ApplicationDbContext>(configuration);//事件总线
+            services.AddTransient<ISubscriberService, SubscriberService>();//订阅服务
+
             services.AddConsulGrpc(configuration);//GRPC服务注册
             services.AddController();//api控制器
             services.AddSwaggerInfo($"{typeof(Startup).Namespace}");

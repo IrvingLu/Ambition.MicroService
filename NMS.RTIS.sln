@@ -39,8 +39,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NMS.User.Service", "Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NMS.User.Web", "Services\User\NMS.User.Web\NMS.User.Web.csproj", "{7C32C02C-CA71-46DF-88E8-53D0991C8ACC}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1010D57A-9897-40C0-9562-465F9CA20A26}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc", "Grpc", "{F3D371D3-CE44-4361-A0BA-D216D297B031}"
 	ProjectSection(SolutionItems) = preProject
 		Shared\Grpc\HealthCheck.proto = Shared\Grpc\HealthCheck.proto
@@ -101,10 +99,6 @@ Global
 		{7C32C02C-CA71-46DF-88E8-53D0991C8ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C32C02C-CA71-46DF-88E8-53D0991C8ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C32C02C-CA71-46DF-88E8-53D0991C8ACC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1010D57A-9897-40C0-9562-465F9CA20A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1010D57A-9897-40C0-9562-465F9CA20A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1010D57A-9897-40C0-9562-465F9CA20A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1010D57A-9897-40C0-9562-465F9CA20A26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
