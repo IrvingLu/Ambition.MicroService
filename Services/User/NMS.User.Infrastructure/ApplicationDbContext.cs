@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using NMS.User.Domain.Identity;
 using NMS.User.Domain.Tenant;
-using NMS.User.Infrastructure.EntityTypeConfiguration;
 using Shared.Infrastructure.Core.Extensions;
 using System;
 using System.Threading;
@@ -41,7 +40,7 @@ namespace NMS.User.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region 注册领域模型与数据库的映射关系
-            modelBuilder.ApplyConfiguration(new TenantEntityTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new TenantEntityTypeConfiguration());
             #endregion
             base.OnModelCreating(modelBuilder);
         }

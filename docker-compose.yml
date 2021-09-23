@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    ports:
+     - "5000:5000"
+
+  nms.identity.web:
+    image: ${DOCKER_REGISTRY-}nmsidentityweb
+    build:
+      context: .
+      dockerfile: Services/Identity/Dockerfile
+    ports:
+     - "5001:5001"
+
+  nms.patient.web:
+    image: ${DOCKER_REGISTRY-}nmspatientweb
+    build:
+      context: .
+      dockerfile: Services/Patient/NMS.Patient.Web/Dockerfile
+    ports:
+     - "5002:5002"
+     - "15002:15002" 
+
+  nms.user.web:
+    image: ${DOCKER_REGISTRY-}nmsuserweb
+    build:
+      context: .
+      dockerfile: Services/User/NMS.User.Web/Dockerfile
+    ports:
+     - "5003:5003"
+     - "15003:15003"
+  

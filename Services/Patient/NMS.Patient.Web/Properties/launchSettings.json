@@ -18,11 +18,10 @@
     "Docker": {
       "commandName": "Docker",
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "httpPort": 56381
+      "publishAllPorts": true
     },
     "NMS.Patient.Web": {
       "commandName": "Project"
-
     }
   }
 }

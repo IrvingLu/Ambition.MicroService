@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31612.314
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{DDEB553D-C569-411B-98E5-14FBF20FC37F}"
 EndProject
@@ -44,6 +44,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc", "Grpc", "{F3D371D3-C
 		Shared\Grpc\HealthCheck.proto = Shared\Grpc\HealthCheck.proto
 		Shared\Grpc\patients.proto = Shared\Grpc\patients.proto
 	EndProjectSection
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D5352A4E-1EC7-4826-9157-74A54937B35F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{7C32C02C-CA71-46DF-88E8-53D0991C8ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C32C02C-CA71-46DF-88E8-53D0991C8ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C32C02C-CA71-46DF-88E8-53D0991C8ACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5352A4E-1EC7-4826-9157-74A54937B35F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5352A4E-1EC7-4826-9157-74A54937B35F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5352A4E-1EC7-4826-9157-74A54937B35F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5352A4E-1EC7-4826-9157-74A54937B35F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

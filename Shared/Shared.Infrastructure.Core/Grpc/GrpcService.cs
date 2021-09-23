@@ -15,8 +15,6 @@ namespace Shared.Infrastructure.Core.Grpc
         {
             this.configuration = Configuration;
         }
-
-        public static int number = 1;
         //通过调用Consul查询对应的服务地址，方便gRPC调用
         public async Task<GrpcChannel> GetChannelByNameAsync(string name)
         {
