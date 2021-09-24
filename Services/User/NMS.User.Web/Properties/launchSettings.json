@@ -22,9 +22,6 @@
     },
     "NMS.User.Web": {
       "commandName": "Project",
-      "environmentVariables": {
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "SkyAPM.Agent.AspNetCore"
-      }
     }
   }
 }

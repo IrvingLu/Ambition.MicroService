@@ -8,7 +8,7 @@
     "Sampling": {
       "SamplePer3Secs": -1,
       "Percentage": -1.0,
-      "IgnorePaths": [ "**/api/MyHealth/Check" ]
+      "IgnorePaths": [ "**/health", "**/grpc.health.v1.Health/Check" ]
     },
     "Logging": {
       "Level": "Information",

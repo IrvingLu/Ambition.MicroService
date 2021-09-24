@@ -13,6 +13,7 @@ namespace NMS.Identity.Web
     {
         public static void Main(string[] args)
         {
+            Environment.SetEnvironmentVariable("ASPNETCORE_HOSTINGSTARTUPASSEMBLIES", "SkyAPM.Agent.AspNetCore");
             LogConfig.ConfigureLogging();
             CreateHostBuilder(args).Build().Run();
         }

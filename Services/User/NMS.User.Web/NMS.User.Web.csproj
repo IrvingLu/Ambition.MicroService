@@ -17,9 +17,4 @@
 	<ItemGroup>
 		<Protobuf Include="..\..\..\Shared\Grpc\patients.proto" GrpcServices="Client" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Content Update="skyapm.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	</ItemGroup>
 </Project>
