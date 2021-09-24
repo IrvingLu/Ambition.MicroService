@@ -5,8 +5,17 @@ using Shared.Infrastructure.Core.Extensions;
 
 namespace NMS.Identity.Web.Infrastructure
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ApplicationBuilderExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="Configuration"></param>
+        /// <param name="lifetime"></param>
         public static void UseConfig(this IApplicationBuilder app, IConfiguration Configuration, IHostApplicationLifetime lifetime) 
         {
             app.UseHealthChecks("/health");//健康检查

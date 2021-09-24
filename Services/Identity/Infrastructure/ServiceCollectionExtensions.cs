@@ -5,13 +5,24 @@ using Microsoft.Extensions.DependencyInjection;
 using NMS.Identity.Web.Config;
 using NMS.Identity.Web.Domain;
 using Shared.Infrastructure.Core.Extensions;
+using SkyApm.Utilities.DependencyInjection;
 
 namespace NMS.Identity.Web.Infrastructure
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddSkyApmExtensions();//sky Apm监控
             //上下文配置
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("Postgresql")));
             //身份验证配置

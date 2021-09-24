@@ -1,32 +1,33 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Logging;
 using NMS.User.Domain.Identity;
 using NMS.User.Infrastructure;
 using NMS.User.Service;
 using Shared.Infrastructure.Core.Extensions;
+using SkyApm.Utilities.DependencyInjection;
 using System;
-using System.Text;
 
 namespace NMS.User.Web.Infrastructure
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
            // services.ConfigureStartupConfig<MongodbHostConfig>(configuration.GetSection("MongodbHostConfig"));
             RedisHelper.Initialization(new CSRedis.CSRedisClient(configuration.GetConnectionString("CsRedisCachingConnectionString")));//redis初始化
-            //services.AddHttpContextAccessor();//加载http上下文
-            //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);//解决.netcore 编码问题
-            //IdentityModelEventSource.ShowPII = true;//显示错误的详细信息并查看问题
-            //services.Configure<KestrelServerOptions>(options =>
-            //{
-            //    options.AllowSynchronousIO = true;
-            //});
+            services.AddSkyApmExtensions();//sky Apm监控
             services.AddCorsConfig();//跨域配置
             services.AddIdentityOptions();//身份认证配置
             services.AddAutoMapper(typeof(Startup));//automapper

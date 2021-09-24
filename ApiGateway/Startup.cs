@@ -10,6 +10,7 @@ using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
 using Ocelot.Provider.Polly;
+using SkyApm.Utilities.DependencyInjection;
 using System.Threading.Tasks;
 
 namespace GateWay.Api
@@ -24,6 +25,7 @@ namespace GateWay.Api
         // 服务注入
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSkyApmExtensions();//sky Apm监控
             //资源服务器配置
             services.AddAuthentication(options =>
             {
