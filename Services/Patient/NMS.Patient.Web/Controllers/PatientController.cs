@@ -45,7 +45,7 @@ namespace NMS.Patient.Web.Controllers
   
         public async Task<IActionResult> GetPatients([FromQuery] PatientsCommand command)
         {
-          var ss=  Request.Headers["UserId"];
+            var ss=  Request.Headers["UserId"];
             var result = await _mediator.Send(command);
             //result = null;
             //var ss = result.Data;

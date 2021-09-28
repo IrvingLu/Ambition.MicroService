@@ -21,7 +21,7 @@
       "httpPort": 56381
     },
     "NMS.User.Web": {
-      "commandName": "Project",
+      "commandName": "Project"
     }
   }
 }

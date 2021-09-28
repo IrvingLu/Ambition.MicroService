@@ -10,12 +10,6 @@
 		<Folder Include="Migrations\" />
 		<Folder Include="Configuration\" />
 	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.10">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
 	<ItemGroup> 
 		<ProjectReference Include="..\NMS.User.Domain\NMS.User.Domain.csproj" />
 	</ItemGroup>

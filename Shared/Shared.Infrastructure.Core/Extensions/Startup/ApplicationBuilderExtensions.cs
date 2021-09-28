@@ -33,8 +33,8 @@ namespace Shared.Infrastructure.Core.Extensions
                 ///健康检查
                 var httpCheck = new AgentServiceCheck()
                 {
-                    DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(10),//服务出错1分钟之后，取消服务
-                    Interval = TimeSpan.FromSeconds(2),///检查周期
+                    DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(60),//服务出错1分钟之后，取消服务
+                    Interval = TimeSpan.FromSeconds(10),///检查周期
                     HTTP = "http://" + serviceConfig.GetSection("Address").Value + ":" + Convert.ToInt32(serviceConfig.GetSection("Port").Value) + "/health"
                 };
                 ///服务注册

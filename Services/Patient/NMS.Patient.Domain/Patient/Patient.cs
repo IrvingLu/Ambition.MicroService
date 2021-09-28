@@ -20,7 +20,14 @@ namespace NMS.Patient.Domain.Patient
         /// 联系方式
         /// </summary>
         public string Phone { get; set; }
-
+        /// <summary>
+        /// 患者性别
+        /// </summary>
+        public string Sex { get; set; }
+        /// <summary>
+        /// 年龄
+        /// </summary>
+        public string Age { get; set; }
         public Patient(string name, string phone = null)
         {
             Name = name;

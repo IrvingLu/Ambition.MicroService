@@ -17,7 +17,7 @@ namespace Shared.Infrastructure.Core.Core
 {
     public static class LogConfig
     {
-        public static void ConfigureLogging()
+        public static void ConfigureLogging(string indexName)
         {
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var configuration = new ConfigurationBuilder()
@@ -31,18 +31,18 @@ namespace Shared.Infrastructure.Core.Core
                 .Enrich.FromLogContext()
                 .Enrich.WithExceptionDetails()
                 .WriteTo.Console()
-                .WriteTo.Elasticsearch(ConfigureElasticSink(configuration, environment))
+                .WriteTo.Elasticsearch(ConfigureElasticSink(configuration, environment, indexName))
                 .Enrich.WithProperty("Environment", environment)
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
         }
 
-        private static ElasticsearchSinkOptions ConfigureElasticSink(IConfigurationRoot configuration, string environment)
+        private static ElasticsearchSinkOptions ConfigureElasticSink(IConfigurationRoot configuration, string environment, string indexName)
         {
             return new ElasticsearchSinkOptions(new Uri(configuration["ElkAddress"]))
             {
                 AutoRegisterTemplate = true,
-                IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name.ToLower().Replace(".", "-")}",
+                IndexFormat = indexName,
                 MinimumLogEventLevel = LogEventLevel.Error
             };
         }

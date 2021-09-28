@@ -19,14 +19,15 @@ namespace NMS.Patient.Web.GrpsService
     /// </summary>
     public class PatientGrpcService : PatientGrpc.PatientGrpcBase
     {
-        private readonly IMediator _mediator;
+        private readonly IMediator mediator;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="mediator"></param>
         public PatientGrpcService(IMediator mediator)
         {
-            _mediator = mediator;
+            this.mediator = mediator;
         }
         /// <summary>
         ///获取患者详情
@@ -36,7 +37,7 @@ namespace NMS.Patient.Web.GrpsService
         /// <returns></returns>
         public override async Task<DetailResult> GetPatientInfo(DetailRequest request, ServerCallContext context)
         {
-            var data = await _mediator.Send(new PatientDetailCommand(System.Guid.Parse(request.Id)));
+            var data = await mediator.Send(new PatientDetailCommand(System.Guid.Parse(request.Id)));
             return new DetailResult {
                 Name = data.Name
             };

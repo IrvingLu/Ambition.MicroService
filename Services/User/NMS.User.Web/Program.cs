@@ -8,6 +8,7 @@ using Serilog;
 using Shared.Infrastructure.Core.Core;
 using System;
 using System.Net;
+using System.Reflection;
 
 namespace NMS.User.Web
 {
@@ -16,7 +17,7 @@ namespace NMS.User.Web
         public static void Main(string[] args)
         {
             Environment.SetEnvironmentVariable("ASPNETCORE_HOSTINGSTARTUPASSEMBLIES", "SkyAPM.Agent.AspNetCore");
-            LogConfig.ConfigureLogging();
+            LogConfig.ConfigureLogging($"{Assembly.GetExecutingAssembly().GetName().Name.ToLower().Replace(".", "-")}");
             CreateHostBuilder(args).Build().Run();
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>

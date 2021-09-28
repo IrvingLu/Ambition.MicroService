@@ -35,6 +35,8 @@ namespace NMS.User.Web.Controllers.User
             var channel =await _grpcService.GetChannelByNameAsync("PatientService");
             var catClient = new PatientGrpc.PatientGrpcClient(channel);
             var data= catClient.GetPatientInfo(new DetailRequest() { Id= "32536679-fc0a-4812-95b5-fa18da74f66a" });
+             data = null;
+            var ss = data.Name;
             return Success(data);
         }
 

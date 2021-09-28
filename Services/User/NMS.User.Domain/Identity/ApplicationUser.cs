@@ -7,6 +7,11 @@ namespace NMS.User.Domain.Identity
         /// <summary>
         /// 用户头像
         /// </summary>
-       public string Avatar { get; set; }
+        public string Avatar { get; set; }
+
+        /// <summary>
+        /// 昵称
+        /// </summary>
+        public string NickName { get; set; }
     }
 }
